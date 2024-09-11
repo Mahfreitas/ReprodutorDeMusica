@@ -1,7 +1,7 @@
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello FX");
-        System.out.println("Bom dia Maria");
+        System.out.println("Bom dia Thomas");
         
     }
 }
