@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap');
+
+.background {
+    -fx-background-color: radial-gradient(focus-distance 0%, center 50% 50%, radius 70%, black,black, #29289d);
+    -fx-backgound-size: cover;
+}
+.botao {
+    -fx-border-color: white;
+    -fx-border-width: 3px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-background-color: #4354bf;
+}

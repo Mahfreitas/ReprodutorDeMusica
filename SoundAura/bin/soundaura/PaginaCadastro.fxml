@@ -32,14 +32,24 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.PaginaCadastro">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -80,6 +90,50 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="2000.0" prefWidth="2000.0" style="-fx-background-size: 100%; -fx-background-insets: 0;" styleClass="background" stylesheets="@../estilos/InicialTheme.css">
+         <children>
+            <HBox prefHeight="375.0" prefWidth="640.0">
+               <children>
+                  <Pane fx:id="PaneTopoTela" prefHeight="384.0" prefWidth="642.0">
+                     <children>
+                        <Circle fill="WHITE" layoutX="317.0" layoutY="51.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
+                        <ImageView fitHeight="75.0" fitWidth="86.0" layoutX="277.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagens/LogoApp.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="WHITE" layoutX="272.0" layoutY="97.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="SoundAura" textAlignment="CENTER" wrappingWidth="96.26800537109375">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="246.0" layoutY="126.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Email" wrappingWidth="96.26800537109375">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="TextFielEmailCad" layoutX="246.0" layoutY="131.0" />
+                        <Button fx:id="BotaoCadastro" blendMode="LIGHTEN" layoutX="270.0" layoutY="271.0" mnemonicParsing="false" onAction="#RealizarCadastro" prefHeight="27.0" prefWidth="104.0" styleClass="botao" text="Sign-Up" textFill="WHITE" />
+                        <Text fill="WHITE" layoutX="246.0" layoutY="179.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Senha" wrappingWidth="78.61328125">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="TextFieldSenhaCad" layoutX="246.0" layoutY="184.0" />
+                        <Text fill="WHITE" layoutX="246.0" layoutY="231.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Confirme sua senha" wrappingWidth="117.26800537109375">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="TextFieldConfSenhaCad" layoutX="246.0" layoutY="236.0" />
+                        <Text fill="WHITE" layoutX="263.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ja possui conta?" wrappingWidth="117.26800537109375" />
+                        <Hyperlink fx:id="LinkLogin1" layoutX="349.0" layoutY="306.0" style="-fx-underline: true;" text="Faça" textFill="WHITE" />
+                        <Hyperlink fx:id="LinkLogin2" layoutX="290.0" layoutY="322.0" style="-fx-underline: true;" text="login aqui" textFill="WHITE" />
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
   </children>
 </VBox>

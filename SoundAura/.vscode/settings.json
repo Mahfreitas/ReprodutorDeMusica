@@ -3,13 +3,13 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "/home/aluno/Documentos/ReprodutorDeMusica/BiblotecaJavaFX/javafx-sdk-22.0.2/lib/javafx-swt.jar",
-        "/home/aluno/Documentos/ReprodutorDeMusica/BiblotecaJavaFX/javafx-sdk-22.0.2/lib/javafx.web.jar",
-        "/home/aluno/Documentos/ReprodutorDeMusica/BiblotecaJavaFX/javafx-sdk-22.0.2/lib/javafx.swing.jar",
-        "/home/aluno/Documentos/ReprodutorDeMusica/BiblotecaJavaFX/javafx-sdk-22.0.2/lib/javafx.media.jar",
-        "/home/aluno/Documentos/ReprodutorDeMusica/BiblotecaJavaFX/javafx-sdk-22.0.2/lib/javafx.graphics.jar",
-        "/home/aluno/Documentos/ReprodutorDeMusica/BiblotecaJavaFX/javafx-sdk-22.0.2/lib/javafx.fxml.jar",
-        "/home/aluno/Documentos/ReprodutorDeMusica/BiblotecaJavaFX/javafx-sdk-22.0.2/lib/javafx.controls.jar",
-        "/home/aluno/Documentos/ReprodutorDeMusica/BiblotecaJavaFX/javafx-sdk-22.0.2/lib/javafx.base.jar"
+        "c:\\Users\\Guthora\\Desktop\\THOMAS\\GIT_HUB\\ReprodutorDeMusica\\BibliotecaJavaFx\\openjfx-22.0.2_windows-x64_bin-sdk\\javafx-sdk-22.0.2\\lib\\javafx.base.jar",
+        "c:\\Users\\Guthora\\Desktop\\THOMAS\\GIT_HUB\\ReprodutorDeMusica\\BibliotecaJavaFx\\openjfx-22.0.2_windows-x64_bin-sdk\\javafx-sdk-22.0.2\\lib\\javafx.controls.jar",
+        "c:\\Users\\Guthora\\Desktop\\THOMAS\\GIT_HUB\\ReprodutorDeMusica\\BibliotecaJavaFx\\openjfx-22.0.2_windows-x64_bin-sdk\\javafx-sdk-22.0.2\\lib\\javafx.fxml.jar",
+        "c:\\Users\\Guthora\\Desktop\\THOMAS\\GIT_HUB\\ReprodutorDeMusica\\BibliotecaJavaFx\\openjfx-22.0.2_windows-x64_bin-sdk\\javafx-sdk-22.0.2\\lib\\javafx.graphics.jar",
+        "c:\\Users\\Guthora\\Desktop\\THOMAS\\GIT_HUB\\ReprodutorDeMusica\\BibliotecaJavaFx\\openjfx-22.0.2_windows-x64_bin-sdk\\javafx-sdk-22.0.2\\lib\\javafx.media.jar",
+        "c:\\Users\\Guthora\\Desktop\\THOMAS\\GIT_HUB\\ReprodutorDeMusica\\BibliotecaJavaFx\\openjfx-22.0.2_windows-x64_bin-sdk\\javafx-sdk-22.0.2\\lib\\javafx.swing.jar",
+        "c:\\Users\\Guthora\\Desktop\\THOMAS\\GIT_HUB\\ReprodutorDeMusica\\BibliotecaJavaFx\\openjfx-22.0.2_windows-x64_bin-sdk\\javafx-sdk-22.0.2\\lib\\javafx.web.jar",
+        "c:\\Users\\Guthora\\Desktop\\THOMAS\\GIT_HUB\\ReprodutorDeMusica\\BibliotecaJavaFx\\openjfx-22.0.2_windows-x64_bin-sdk\\javafx-sdk-22.0.2\\lib\\javafx-swt.jar"
     ]
 }
