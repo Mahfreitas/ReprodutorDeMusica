@@ -31,8 +31,18 @@ public class PaginaCadastro {
     private TextField TextFieldSenhaCad;
 
     @FXML
-    void RealizarCadastro(ActionEvent event) {
+    void IrParaLogin(ActionEvent event) {
+        Main.alterarTelas("Login");
+    }
 
+    @FXML
+    void RealizarCadastro(ActionEvent event) {
+        String email = TextFielEmailCad.getText();
+        String senha = TextFielEmailCad.getText();
+        String confSenha = TextFielEmailCad.getText();
+
+        GerenciamentoContas.registrar(email, senha, confSenha);
     }
 
 }
+

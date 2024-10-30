@@ -49,7 +49,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.PaginaCadastro">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.PaginaCadastro">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -127,8 +127,8 @@
                         </Text>
                         <TextField fx:id="TextFieldConfSenhaCad" layoutX="246.0" layoutY="236.0" />
                         <Text fill="WHITE" layoutX="258.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ja possui conta?" wrappingWidth="117.26800537109375" />
-                        <Hyperlink fx:id="LinkLogin1" layoutX="361.0" layoutY="312.0" style="-fx-underline: true;" text="Faça" textFill="WHITE" />
-                        <Hyperlink fx:id="LinkLogin2" layoutX="292.0" layoutY="327.0" style="-fx-underline: true;" text="login aqui" textFill="WHITE" />
+                        <Hyperlink fx:id="LinkLogin1" layoutX="361.0" layoutY="312.0" onAction="#IrParaLogin" style="-fx-underline: true;" text="Faça" textFill="WHITE" />
+                        <Hyperlink fx:id="LinkLogin2" layoutX="292.0" layoutY="327.0" onAction="#IrParaLogin" style="-fx-underline: true;" text="login aqui" textFill="WHITE" />
                      </children>
                   </Pane>
                </children>

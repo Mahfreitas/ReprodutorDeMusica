@@ -25,9 +25,18 @@ public class PaginaLogin {
     private TextField TextFieldSenhaLog;
 
     @FXML
-    void RealizarLogin(ActionEvent event) {
+    void IrParaCad(ActionEvent event) {
+        Main.alterarTelas("Cadastro");
+    }
 
+    @FXML
+    void RealizarLogin(ActionEvent event) {
+        String email = TextFielEmailLog.getText();
+        String senha = TextFieldSenhaLog.getText();
+
+        GerenciamentoContas.login(email, senha);
     }
 
 }
+
 

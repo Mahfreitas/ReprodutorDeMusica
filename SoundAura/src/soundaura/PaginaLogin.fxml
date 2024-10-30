@@ -49,7 +49,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.PaginaLogin">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.PaginaLogin">
    <children>
       <MenuBar VBox.vgrow="NEVER">
          <menus>
@@ -121,8 +121,8 @@
                         </Text>
                         <TextField fx:id="TextFieldSenhaLog" layoutX="246.0" layoutY="207.0" />
                         <Text fill="WHITE" layoutX="248.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nao possui conta?" wrappingWidth="132.26800537109375" />
-                        <Hyperlink fx:id="LinkLogin3" layoutX="365.0" layoutY="285.0" style="-fx-underline: true;" text="Faça" textFill="WHITE" />
-                        <Hyperlink fx:id="LinkLogin3" layoutX="297.0" layoutY="300.0" style="-fx-underline: true;" text="ela aqui" textFill="WHITE" />
+                        <Hyperlink fx:id="LinkLogin3" layoutX="365.0" layoutY="285.0" onAction="#IrParaCad" style="-fx-underline: true;" text="Faça" textFill="WHITE" />
+                        <Hyperlink fx:id="LinkLogin3" layoutX="297.0" layoutY="300.0" onAction="#IrParaCad" style="-fx-underline: true;" text="ela aqui" textFill="WHITE" />
                      </children>
                   </Pane>
                </children>
