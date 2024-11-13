@@ -38,8 +38,8 @@ public class PaginaCadastro {
     @FXML
     void RealizarCadastro(ActionEvent event) {
         String email = TextFielEmailCad.getText();
-        String senha = TextFielEmailCad.getText();
-        String confSenha = TextFielEmailCad.getText();
+        String senha = TextFieldSenhaCad.getText();
+        String confSenha = TextFieldConfSenhaCad.getText();
 
         GerenciamentoContas.registrar(email, senha, confSenha);
     }

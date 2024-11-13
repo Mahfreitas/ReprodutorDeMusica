@@ -22,6 +22,7 @@ public class GerenciamentoContas {
         }
 
         if(!email.isEmpty() && !senha.isEmpty() && !confSenha.isEmpty()){
+            //CONFIRMAção de senha
             if(senha.equals(confSenha)){
                 Usuarios.add(new Conta(email, senha));
                 Alert CadastroRealizado = new Alert(Alert.AlertType.INFORMATION);

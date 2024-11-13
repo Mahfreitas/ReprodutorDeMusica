@@ -6,7 +6,7 @@
         "name": "Launch App",
         "request": "launch",
         "mainClass": "soundaura.Main",
-        "vmArgs": "--module-path C:\\Users\\Guthora\\Desktop\\THOMAS\\GIT_HUB\\ReprodutorDeMusica\\BibliotecaJavaFx\\openjfx-22.0.2_windows-x64_bin-sdk\\javafx-sdk-22.0.2\\lib --add-modules javafx.controls,javafx.fxml",
+        "vmArgs": "--module-path /home/aluno/Documentos/JavaFX/javafx-sdk-22.0.2/lib --add-modules javafx.controls,javafx.fxml",
     }
     ]
     }
