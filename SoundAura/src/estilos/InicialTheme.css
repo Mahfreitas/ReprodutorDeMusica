@@ -11,3 +11,8 @@
     -fx-background-radius: 20px;
     -fx-background-color: #4354bf;
 }
+.botaoMenu {
+    -fx-border-color: #acacac;
+    -fx-background-color: #acacac;
+}
+

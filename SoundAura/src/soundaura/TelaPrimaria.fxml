@@ -32,72 +32,73 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.ImageInput?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.TelaPrimaria">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.TelaPrimaria">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: black;" VBox.vgrow="ALWAYS">
-      <children>
-        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-          <font>
-            <Font size="18.0" />
-          </font>
-        </Label>
-            <Label fx:id="emailUsuario" layoutX="71.0" layoutY="31.0" text="Label" textFill="WHITE" />
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="245.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+         <children>
+            <AnchorPane layoutX="223.0" layoutY="345.0" prefHeight="55.0" prefWidth="422.0" style="-fx-background-color: #36449f;" />
+            <AnchorPane layoutX="-1.0" prefHeight="28.0" prefWidth="646.0" style="-fx-background-color: #36449f;" />
+            <AnchorPane layoutX="50.0" layoutY="28.0" prefHeight="372.0" prefWidth="176.0" style="-fx-background-color: acacac;">
+               <children>
+                  <VBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="8.0" prefHeight="287.0" prefWidth="173.0" spacing="15.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Inicio" />
+                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Conta" />
+                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="PlayLists" />
+                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Músicas" />
+                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Configurações" />
+                     </children>
+                  </VBox>
+                  <Button layoutX="2.0" layoutY="332.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Sair" />
+               </children>
+            </AnchorPane>
+            <VBox alignment="TOP_CENTER" layoutX="8.0" layoutY="39.0" prefHeight="200.0" prefWidth="35.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagens/icons8-casa-24.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagens/icons8-usuário-30.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagens/icons8-lista-de-reprodução-inteligente-50.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagens/icons8-nota-musical-30.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagens/icons8-engrenagem-24.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="10.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../imagens/transferir.png" />
+                  <Image url="@../imagens/icons8-sair-30.png" />
                </image>
             </ImageView>
-      </children>
+            <Button layoutX="408.0" layoutY="214.0" mnemonicParsing="false" onMouseClicked="#trocarImage" text="Button">
+               <effect>
+                  <ImageInput />
+               </effect>
+            </Button>
+         </children>
     </AnchorPane>
   </children>
 </VBox>
