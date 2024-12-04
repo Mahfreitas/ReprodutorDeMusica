@@ -15,7 +15,6 @@ create table musica (
     horario_addMS timestamp default current_timestamp,
 	artistas_musica varchar(100),
     album_musica varchar(100),
-    favorita_musica boolean,
     genero_musica varchar(100)
 );
 
@@ -37,11 +36,11 @@ create table Mplaylist (
     FOREIGN KEY (musica_id) REFERENCES musica(id_musica) ON DELETE CASCADE
 );
 
-CREATE TABLE Fmusica (
-    FavoriteID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID INT NOT NULL,
-    SongID INT NOT NULL,
-    MarkedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
-    FOREIGN KEY (SongID) REFERENCES Songs(SongID) ON DELETE CASCADE
+create table musicasFavoritas (
+    musica_favorita INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_musica INT NOT NULL,
+    horario_favoritagem TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_musica) REFERENCES musica(id_musica) ON DELETE CASCADE
 );
