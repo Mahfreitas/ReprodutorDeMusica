@@ -5,12 +5,20 @@ import java.sql.*;
 import javafx.scene.control.Alert;
 
 public class GerenciamentoContas {
-
     // Register user in the database
-    public static void registrar(String email, String senha, String confSenha) {
-        if (!email.isEmpty() && !senha.isEmpty() && !confSenha.isEmpty()) {
-            if (senha.equals(confSenha)) {
-                try (Connection conn = DatabaseConnection.getConnection()) {
+
+    private static Connection connectToDatabase() throws SQLException {
+            String url = MySQL.getUrl();
+            String user = MySQL.getUser();
+            String password = MySQL.getPassword();
+        
+            return DriverManager.getConnection(url, user, password);
+        }
+    
+        public static void registrar(String email, String senha, String confSenha) {
+            if (!email.isEmpty() && !senha.isEmpty() && !confSenha.isEmpty()) {
+                if (senha.equals(confSenha)) {
+                    try (Connection conn = connectToDatabase()) {
                     String checkQuery = "SELECT * FROM usuario WHERE email_usuario = ?";
                     try (PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
                         checkStmt.setString(1, email);
@@ -25,7 +33,7 @@ public class GerenciamentoContas {
                             String insertQuery = "INSERT INTO usuario (Email, PasswordHash) VALUES (?, ?)";
                             try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
                                 insertStmt.setString(1, email);
-                                insertStmt.setString(2, senha); 
+                                insertStmt.setString(2, senha);
                                 insertStmt.executeUpdate();
 
                                 Alert cadastroRealizado = new Alert(Alert.AlertType.INFORMATION);
@@ -37,9 +45,9 @@ public class GerenciamentoContas {
                                 String homeDir = System.getProperty("user.home");
                                 File novaPasta = new File(homeDir + File.separator + "MinhasMusicasSoundAura");
                                 if (!novaPasta.exists()) {
-                                    novaPasta.mkdir(); 
+                                    novaPasta.mkdir();
                                 }
-                                
+
                                 Main.alterarTelas("PaginaPrimaria");
                             }
                         }
@@ -69,7 +77,7 @@ public class GerenciamentoContas {
     }
 
     public static boolean login(String email, String password) {
-        try (Connection conn = DatabaseConnection.getConnection()) {
+        try (Connection conn = connectToDatabase()) {
             String loginQuery = "SELECT * FROM Users WHERE Email = ? AND PasswordHash = ?";
             try (PreparedStatement stmt = conn.prepareStatement(loginQuery)) {
                 stmt.setString(1, email);
