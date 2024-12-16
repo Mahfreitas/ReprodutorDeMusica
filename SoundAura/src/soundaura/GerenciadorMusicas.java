@@ -1,11 +1,19 @@
 package soundaura;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class GerenciadorMusicas {
 
@@ -24,14 +32,33 @@ public class GerenciadorMusicas {
 
     @FXML
     void adicionarMusica(MouseEvent event) {
-        // Pega o texto digitado no campo de texto
-        String nomeMusica = campoMusica.getText();
-
-        // Se o campo não estiver vazio, adiciona a música à lista
-        if (!nomeMusica.isEmpty()) {
-            musicas.add(nomeMusica);
-            campoMusica.clear(); // Limpa o campo de texto após adicionar
+        // Abrir FileChooser para selecionar o arquivo .mp3
+    FileChooser escolherMusica = new FileChooser();
+    escolherMusica.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arquivos MP3", "*.mp3"));
+    
+    // Mostrar o FileChooser
+    File arquivoSelecionado = escolherMusica.showOpenDialog(new Stage());
+    
+    if (arquivoSelecionado != null) {
+        // Copiar o arquivo para a pasta MinhasMusicasSoundAura
+        Path destino = Paths.get(System.getProperty("user.home"), "MinhasMusicasSoundAura", arquivoSelecionado.getName());
+        
+        // Criar a pasta caso não exista
+        File pastaDestino = new File(destino.getParent().toString());
+        if (!pastaDestino.exists()) {
+            pastaDestino.mkdirs();
         }
+        
+        try {
+            Files.copy(arquivoSelecionado.toPath(), destino);
+            System.out.println("Música adicionada: " + destino);
+            // Agora abre a aba para o usuário inserir mais detalhes
+            abrirJanelaDetalhesMusica(destino.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao copiar o arquivo.");
+        }
+    }
     }
 
     @FXML
