@@ -13,6 +13,7 @@ public class Main extends Application {
     private static Scene PaginaLogin;
     private static Scene PaginaCadastro;
     private static Scene PaginaPrimaria;
+    private static Scene PaginaMusicas;
 
     @Override
     public void start(Stage primaryStage) throws IOException { 
@@ -28,7 +29,10 @@ public class Main extends Application {
         Parent fxmlPrim = FXMLLoader.load(getClass().getResource("TelaPrimaria.fxml"));
         PaginaPrimaria = new Scene(fxmlPrim, 640, 400);
 
-        primaryStage.setScene(PaginaCadastro);
+        Parent fxmlMusic = FXMLLoader.load(getClass().getResource("PaginaMusicas.fxml"));
+        PaginaMusicas = new Scene(fxmlMusic, 640, 400);
+
+        primaryStage.setScene(PaginaMusicas);
         primaryStage.show();
     }
 
@@ -42,6 +46,13 @@ public class Main extends Application {
                 break;
             case "PaginaPrimaria":
                 stage.setScene(PaginaPrimaria);
+                break;
+            case "Musicas":
+                stage.setScene(PaginaMusicas);
+                break;
+            case "Playlist":
+                stage.setScene(PaginaPrimaria);
+                break;
         }
     }
     public static void main(String[] args) {

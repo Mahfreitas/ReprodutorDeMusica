@@ -10,4 +10,9 @@ public class TelaPrimaria {
 
     }
 
+    @FXML
+    void irParaMusica(MouseEvent event) {
+        Main.alterarTelas("Musicas");
+    }
+
 }

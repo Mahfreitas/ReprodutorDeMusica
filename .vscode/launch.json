@@ -1,12 +1,19 @@
 {
     "version": "0.2.0",
     "configurations": [
-            {
-                "type": "java",
-                "name": "Launch App",
-                "request": "launch",
-                "mainClass": "soundaura.Main",
-                "vmArgs": "--module-path /home/aluno/Documentos/javafx-sdk-23.0.1/lib --add-modules javafx.controls,javafx.fxml",
-            }
+        {
+            "type": "java",
+            "name": "MultiWindowApp",
+            "request": "launch",
+            "mainClass": "soundaura.MultiWindowApp",
+            "projectName": "ReprodutorDeMusica_dc88d936"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "soundaura.Main",
+            "vmArgs": "--module-path c:\\Users\\Guthora\\Documents\\JavaFX\\openjfx-23.0.1_windows-x64_bin-sdk\\javafx-sdk-23.0.1\\lib --add-modules javafx.controls,javafx.fxml,javafx.media,javafx.base,javafx.graphics,javafx.media,javafx.swing,javafx.web"
+        }
     ]
 }

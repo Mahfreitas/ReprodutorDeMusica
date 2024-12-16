@@ -30,7 +30,7 @@ public class GerenciamentoContas {
                             cadastroErro.setContentText("O usuário em questão já existe, tente novamente");
                             cadastroErro.showAndWait();
                         } else {
-                            String insertQuery = "INSERT INTO usuario (Email, PasswordHash) VALUES (?, ?)";
+                            String insertQuery = "INSERT INTO usuario (email_usuario, senha_usuario) VALUES (?, ?)";
                             try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
                                 insertStmt.setString(1, email);
                                 insertStmt.setString(2, senha);
@@ -78,7 +78,7 @@ public class GerenciamentoContas {
 
     public static boolean login(String email, String password) {
         try (Connection conn = connectToDatabase()) {
-            String loginQuery = "SELECT * FROM Users WHERE Email = ? AND PasswordHash = ?";
+            String loginQuery = "SELECT * FROM Users WHERE email_usuario = ? AND senha_usuario = ?";
             try (PreparedStatement stmt = conn.prepareStatement(loginQuery)) {
                 stmt.setString(1, email);
                 stmt.setString(2, password);
