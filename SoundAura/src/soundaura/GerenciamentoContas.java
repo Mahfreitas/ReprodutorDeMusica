@@ -78,7 +78,7 @@ public class GerenciamentoContas {
 
     public static boolean login(String email, String password) {
         try (Connection conn = connectToDatabase()) {
-            String loginQuery = "SELECT id_usuario FROM Users WHERE email_usuario = ? AND senha_usuario = ?";
+            String loginQuery = "SELECT id_usuario FROM usuario WHERE email_usuario = ? AND senha_usuario = ?";
             try (PreparedStatement stmt = conn.prepareStatement(loginQuery)) {
                 stmt.setString(1, email);
                 stmt.setString(2, password);

@@ -7,15 +7,17 @@ create table usuario(
     email_usuario varchar(100) not null,
     reproducaoH_usuario varchar(200)
 );
-create table musica (
-	id_musica int auto_increment primary key,
-    duracao_musica int not null,
-    nome_musica varchar(100) not null,
-    filepath_musica varchar(500) not null unique,
-    horario_addMS timestamp default current_timestamp,
-	artistas_musica varchar(100),
-    album_musica varchar(100),
-    genero_musica varchar(100)
+CREATE TABLE musica (
+    id_musica INT AUTO_INCREMENT PRIMARY KEY,
+    duracao_musica INT NOT NULL,
+    nome_musica VARCHAR(100) NOT NULL,
+    filepath_musica VARCHAR(500) NOT NULL UNIQUE,
+    horario_addMS TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    artistas_musica VARCHAR(100),
+    album_musica VARCHAR(100),
+    genero_musica VARCHAR(100),
+    id_usuario INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
 create table playlist (

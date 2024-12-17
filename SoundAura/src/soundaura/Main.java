@@ -32,7 +32,7 @@ public class Main extends Application {
         Parent fxmlMusic = FXMLLoader.load(getClass().getResource("PaginaMusicas.fxml"));
         PaginaMusicas = new Scene(fxmlMusic, 640, 400);
 
-        primaryStage.setScene(PaginaMusicas);
+        primaryStage.setScene(PaginaLogin);
         primaryStage.show();
     }
 
