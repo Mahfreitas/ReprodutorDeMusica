@@ -48,7 +48,7 @@ public class GerenciamentoContas {
                                     novaPasta.mkdir();
                                 }
 
-                                Main.alterarTelas("PaginaPrimaria");
+                                Main.alterarTelas("Login");
                             }
                         }
                     }
@@ -78,12 +78,14 @@ public class GerenciamentoContas {
 
     public static boolean login(String email, String password) {
         try (Connection conn = connectToDatabase()) {
-            String loginQuery = "SELECT * FROM Users WHERE email_usuario = ? AND senha_usuario = ?";
+            String loginQuery = "SELECT id_usuario FROM Users WHERE email_usuario = ? AND senha_usuario = ?";
             try (PreparedStatement stmt = conn.prepareStatement(loginQuery)) {
                 stmt.setString(1, email);
                 stmt.setString(2, password);
                 ResultSet resultSet = stmt.executeQuery();
                 if (resultSet.next()) {
+                    int idUsuario = resultSet.getInt("id_usuario");
+                    SessaoUsuario.getInstancia().setIdUsuario(idUsuario);
                     Main.alterarTelas("PaginaPrimaria");
                     return true;
                 } else {
