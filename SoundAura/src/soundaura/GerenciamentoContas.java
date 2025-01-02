@@ -5,20 +5,18 @@ import java.sql.*;
 import javafx.scene.control.Alert;
 
 public class GerenciamentoContas {
-    // Register user in the database
-
     private static Connection connectToDatabase() throws SQLException {
-            String url = MySQL.getUrl();
-            String user = MySQL.getUser();
-            String password = MySQL.getPassword();
-        
-            return DriverManager.getConnection(url, user, password);
-        }
-    
-        public static void registrar(String email, String senha, String confSenha) {
-            if (!email.isEmpty() && !senha.isEmpty() && !confSenha.isEmpty()) {
-                if (senha.equals(confSenha)) {
-                    try (Connection conn = connectToDatabase()) {
+        String url = MySQL.getUrl();
+        String user = MySQL.getUser();
+        String password = MySQL.getPassword();
+
+        return DriverManager.getConnection(url, user, password);
+    }
+
+    public static void registrar(String email, String senha, String confSenha) {
+        if (!email.isEmpty() && !senha.isEmpty() && !confSenha.isEmpty()) {
+            if (senha.equals(confSenha)) {
+                try (Connection conn = connectToDatabase()) {
                     String checkQuery = "SELECT * FROM usuario WHERE email_usuario = ?";
                     try (PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
                         checkStmt.setString(1, email);
@@ -30,25 +28,39 @@ public class GerenciamentoContas {
                             cadastroErro.setContentText("O usuário em questão já existe, tente novamente");
                             cadastroErro.showAndWait();
                         } else {
-                            String insertQuery = "INSERT INTO usuario (email_usuario, senha_usuario) VALUES (?, ?)";
-                            try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
-                                insertStmt.setString(1, email);
-                                insertStmt.setString(2, senha);
-                                insertStmt.executeUpdate();
+                            if (!email.contains("@")) {
+                                Alert cadastroErro2 = new Alert(Alert.AlertType.INFORMATION);
+                                cadastroErro2.setTitle("ERRO NO CADASTRO");
+                                cadastroErro2.setHeaderText("SoundAura");
+                                cadastroErro2.setContentText("O email é inválido, tente novamente");
+                                cadastroErro2.showAndWait();
+                            } else {
+                                String insertQuery = "INSERT INTO usuario (email_usuario, senha_usuario) VALUES (?, ?)";
+                                try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
+                                    insertStmt.setString(1, email);
+                                    insertStmt.setString(2, senha);
+                                    insertStmt.executeUpdate();
 
-                                Alert cadastroRealizado = new Alert(Alert.AlertType.INFORMATION);
-                                cadastroRealizado.setTitle("Cadastro Realizado com Sucesso");
-                                cadastroRealizado.setHeaderText("SoundAura");
-                                cadastroRealizado.setContentText("O seu cadastro foi realizado com sucesso");
-                                cadastroRealizado.showAndWait();
+                                    Alert cadastroRealizado = new Alert(Alert.AlertType.INFORMATION);
+                                    cadastroRealizado.setTitle("Cadastro Realizado com Sucesso");
+                                    cadastroRealizado.setHeaderText("SoundAura");
+                                    cadastroRealizado.setContentText("O seu cadastro foi realizado com sucesso");
+                                    cadastroRealizado.showAndWait();
 
-                                String homeDir = System.getProperty("user.home");
-                                File novaPasta = new File(homeDir + File.separator + "MinhasMusicasSoundAura");
-                                if (!novaPasta.exists()) {
-                                    novaPasta.mkdir();
+                                    try (ResultSet chave_Primaria = insertStmt.getGeneratedKeys()) {
+                                        if (chave_Primaria.next()) {
+                                            int idUsuario = chave_Primaria.getInt(1);
+                                            String homeDir = System.getProperty("user.home");
+                                            File novaPasta = new File(homeDir + File.separator + "MinhasMusicasSoundAura" + File.separator + "Usuario_" + idUsuario);
+                                            if (!novaPasta.exists()) {
+                                                novaPasta.mkdir();
+                                            }
+                                        } else {
+                                            throw new SQLException("Falha ao obter o ID do usuário inserido.");
+                                        }
+                                    }
+                                    Main.alterarTelas("Login");
                                 }
-
-                                Main.alterarTelas("Login");
                             }
                         }
                     }
@@ -87,6 +99,13 @@ public class GerenciamentoContas {
                     int idUsuario = resultSet.getInt("id_usuario");
                     SessaoUsuario.getInstancia().setIdUsuario(idUsuario);
                     Main.alterarTelas("PaginaPrimaria");
+
+                    String homeDir = System.getProperty("user.home");
+                    File novaPasta = new File(homeDir + File.separator + "MinhasMusicasSoundAura" + File.separator + "Usuario_" + idUsuario);
+                    if (!novaPasta.exists()) {
+                        novaPasta.mkdir();
+                    }
+                    
                     return true;
                 } else {
                     Alert erroLogin = new Alert(Alert.AlertType.INFORMATION);
