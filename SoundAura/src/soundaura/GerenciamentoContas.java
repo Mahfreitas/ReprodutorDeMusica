@@ -98,6 +98,9 @@ public class GerenciamentoContas {
                 if (resultSet.next()) {
                     int idUsuario = resultSet.getInt("id_usuario");
                     SessaoUsuario.getInstancia().setIdUsuario(idUsuario);
+                    
+System.out.println("ID configurado no login: " + SessaoUsuario.getInstancia().getIdUsuario());
+
                     Main.alterarTelas("PaginaPrimaria");
 
                     String homeDir = System.getProperty("user.home");

@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,9 +13,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -27,41 +27,55 @@ import javafx.stage.Stage;
 public class GerenciadorMusicas {
 
     @FXML
-    private ListView<Musica> ListaMusicas;
-    @FXML
     private TextField campoMusica;
 
+    @FXML
+    private TableColumn<Musica, String> colunaAlbum;
+
+    @FXML
+    private TableColumn<Musica, String> colunaArtista;
+
+    @FXML
+    private TableColumn<Musica, String> colunaData;
+
+    @FXML
+    private TableColumn<Musica, String> colunaDuracao;
+
+    @FXML
+    private TableColumn<Musica, String> colunaNome;
+    @FXML
+    private TableView<Musica> tabelaMusica;
     private ObservableList<Musica> musicas;
 
+    int idUsuarioAtual = SessaoUsuario.getInstancia().getIdUsuario();
+    
     private static Connection connectToDatabase() throws SQLException {
-            String url = MySQL.getUrl();
-            String user = MySQL.getUser();
-            String password = MySQL.getPassword();
-        
-            return DriverManager.getConnection(url, user, password);
-        }
+        String url = MySQL.getUrl();
+        String user = MySQL.getUser();
+        String password = MySQL.getPassword();
 
-        public void initialize() {
+        return DriverManager.getConnection(url, user, password);
+    }
+
+     public void initialize() {
+        
         musicas = FXCollections.observableArrayList();
-        ListaMusicas.setItems(musicas);
-        ListaMusicas.setCellFactory(listView -> new ListCell<Musica>() {
-            @Override
-            protected void updateItem(Musica musica, boolean empty) {
-                super.updateItem(musica, empty);
-                if (empty || musica == null) {
-                    setText(null);
-                } else {
-                    setText(musica.getNome() + " - " + musica.getArtista() + " [" + musica.getGenero() + "]" + " - " + musica.getDuracao());
-                }
-            }
-        });
+        tabelaMusica.setItems(musicas);
+
+        colunaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colunaArtista.setCellValueFactory(new PropertyValueFactory<>("artista"));
+        colunaAlbum.setCellValueFactory(new PropertyValueFactory<>("album"));
+        colunaDuracao.setCellValueFactory(new PropertyValueFactory<>("duracao"));
+        colunaData.setCellValueFactory(new PropertyValueFactory<>("dataAdicionada"));
+
         carregarMusicasDoBanco();
     }
 
     public void carregarMusicasDoBanco() {
         try (Connection conn = connectToDatabase()) {
-            String query = "SELECT * FROM musica";
+            String query = "SELECT * FROM musica WHERE id_usuario = ?";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setInt(1, idUsuarioAtual);
                 var rs = stmt.executeQuery();
                 musicas.clear();
                 while (rs.next()) {
@@ -70,11 +84,10 @@ public class GerenciadorMusicas {
                     String album = rs.getString("album_musica");
                     String genero = rs.getString("genero_musica");
                     String duracao = rs.getString("duracao_musica");
+                    String filepath = rs.getString("filepath_musica");
+                    String dataAdicionada = rs.getString("horario_addMS");
 
-                    // Criar objeto Musica
-                    Musica musica = new Musica(nome, artista, album, genero, duracao);
-
-                    // Adicionar música à lista
+                    Musica musica = new Musica(nome, artista, album, genero, duracao, filepath, dataAdicionada);
                     musicas.add(musica);
                 }
             }
@@ -117,6 +130,7 @@ public class GerenciadorMusicas {
 
     @FXML
     void adicionarMusica(MouseEvent event) {
+        System.out.println("ID do Usuário Atual111: " + idUsuarioAtual);
         FileChooser escolherMusica = new FileChooser();
         escolherMusica.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arquivos MP3", "*.mp3"));
 
@@ -133,16 +147,10 @@ public class GerenciadorMusicas {
         int segundos = (int) (duracaoSegundos % 60);
         return String.format("%02d:%02d", minutos, segundos);
     }
-
+    
     @FXML
     void irParaMusica(MouseEvent event) {
-        Musica musicaSelecionada = ListaMusicas.getSelectionModel().getSelectedItem();
 
-        if (musicaSelecionada != null) {
-            System.out.println("Você selecionou a música: " + musicaSelecionada);
-        } else {
-            System.out.println("Nenhuma música selecionada.");
-        }
     }
 
 }

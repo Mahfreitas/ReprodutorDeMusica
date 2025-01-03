@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -48,17 +49,13 @@ public class DetalhesMusica {
     public void configurarArquivoMusica(File arquivo, String duracao) {
         this.arquivoMusica = arquivo;
         this.duracaoMusica = duracao;
-
-        // Preencher o campo de duração
         campoDuracao.setText(duracao);
-        campoDuracao.setEditable(false); // Tornar o campo de duração apenas leitura
+        campoDuracao.setEditable(false);
     }
-
     @FXML
     void cancelar(MouseEvent event) {
         fecharJanela();
     }
-
     @FXML
     void salvarMusica(MouseEvent event) {
         String nome = campoNome.getText();
@@ -69,7 +66,7 @@ public class DetalhesMusica {
         if (nome.isEmpty() || artista.isEmpty() || album.isEmpty() || genero.isEmpty() || arquivoMusica == null) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Campos Incompletos");
-            alerta.setHeaderText("Por favor, preencha pelo menos o campo com o nome da música.");
+            alerta.setHeaderText("Por favor, preencha todos os campos");
             alerta.showAndWait();
             return;
         }
@@ -87,49 +84,54 @@ public class DetalhesMusica {
         String caminhoArquivo = arquivoMusica.getAbsolutePath();
 
         try (Connection conn = connectToDatabase()) {
-            String query = "INSERT INTO musica (nome_musica, artistas_musica, album_musica, genero_musica, horario_addMS, filepath_musica, id_usuario, duracao_musica) "
-                    +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            String query = "INSERT INTO musica (nome_musica, artistas_musica, album_musica, genero_musica, horario_addMS, filepath_musica, id_usuario, duracao_musica) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
                 stmt.setString(1, nome);
                 stmt.setString(2, artista);
                 stmt.setString(3, album);
                 stmt.setString(4, genero);
-                stmt.setTimestamp(5, new Timestamp(System.currentTimeMillis())); // Horário atual
+                stmt.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
                 stmt.setString(6, caminhoArquivo);
                 stmt.setInt(7, idUsuario);
                 stmt.setString(8, duracaoMusica);
                 stmt.executeUpdate();
 
-                Path destino = Paths.get(System.getProperty("user.home"), "MinhasMusicasSoundAura",
-                        arquivoMusica.getName());
-                File pastaDestino = new File(destino.getParent().toString());
-                if (!pastaDestino.exists()) {
-                    pastaDestino.mkdirs();
+                try (ResultSet chavePrimariaMusica = stmt.getGeneratedKeys()) {
+                    if (chavePrimariaMusica.next()) {
+                        int idMusica = chavePrimariaMusica.getInt(1);
+
+                        Path destino = Paths.get(System.getProperty("user.home"), "MinhasMusicasSoundAura", "Usuario_" + idUsuario, "musica_" + idMusica + ".mp3");
+                        File pastaDestino = new File(destino.getParent().toString());
+                        if (!pastaDestino.exists()) {
+                            pastaDestino.mkdirs();
+                        }
+
+                        try {
+                            Files.copy(arquivoMusica.toPath(), destino);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Alert erro = new Alert(Alert.AlertType.ERROR);
+                            erro.setTitle("Erro ao copiar o arquivo");
+                            erro.setHeaderText("Ocorreu um erro ao copiar o arquivo.");
+                            erro.setContentText("Por favor, tente novamente.");
+                            erro.showAndWait();
+                            return;
+                        }
+
+                        gerenciadorMusicas.carregarMusicasDoBanco();
+
+                        Alert sucesso = new Alert(Alert.AlertType.INFORMATION);
+                        sucesso.setTitle("Sucesso");
+                        sucesso.setHeaderText("Música Adicionada");
+                        sucesso.setContentText("A música foi adicionada com sucesso!");
+                        sucesso.showAndWait();
+
+                        // Fechar a janela após salvar
+                        fecharJanela();
+                    } else {
+                        throw new SQLException("Falha ao obter o ID da música inserida.");
+                    }
                 }
-
-                try {
-                    Files.copy(arquivoMusica.toPath(), destino);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Alert erro = new Alert(Alert.AlertType.ERROR);
-                    erro.setTitle("Erro ao copiar o arquivo");
-                    erro.setHeaderText("Ocorreu um erro ao copiar o arquivo.");
-                    erro.setContentText("Por favor, tente novamente.");
-                    erro.showAndWait();
-                    return;
-                }
-
-                gerenciadorMusicas.carregarMusicasDoBanco();
-
-                Alert sucesso = new Alert(Alert.AlertType.INFORMATION);
-                sucesso.setTitle("Sucesso");
-                sucesso.setHeaderText("Música Adicionada");
-                sucesso.setContentText("A música foi adicionada com sucesso!");
-                sucesso.showAndWait();
-
-                // Fechar a janela após salvar
-                fecharJanela();
             }
         } catch (SQLException e) {
             e.printStackTrace();
