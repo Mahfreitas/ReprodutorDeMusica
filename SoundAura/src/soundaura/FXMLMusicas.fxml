@@ -33,32 +33,27 @@
 -->
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.TelaPrimaria">
-  <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: black;" VBox.vgrow="ALWAYS">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.Musicas_Controller">
+   <children>
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: black;" VBox.vgrow="ALWAYS">
          <children>
-            <AnchorPane layoutX="223.0" layoutY="345.0" prefHeight="55.0" prefWidth="422.0" style="-fx-background-color: #36449f;" />
-            <AnchorPane layoutX="-1.0" prefHeight="28.0" prefWidth="646.0" style="-fx-background-color: #36449f;" />
-            <AnchorPane layoutX="50.0" layoutY="28.0" prefHeight="372.0" prefWidth="176.0" style="-fx-background-color: acacac;">
+            <AnchorPane layoutX="55.0" layoutY="345.0" prefHeight="55.0" prefWidth="591.0" style="-fx-background-color: #36449f;">
                <children>
-                  <VBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="8.0" prefHeight="287.0" prefWidth="173.0" spacing="15.0">
-                     <children>
-                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Inicio" />
-                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Conta" />
-                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="PlayLists" />
-                        <Button mnemonicParsing="false" onMouseClicked="#irParaMusica" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Músicas" />
-                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Configurações" />
-                     </children>
-                  </VBox>
-                  <Button layoutX="2.0" layoutY="332.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Sair" />
+                  <Button layoutX="102.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#adicionarMusica" style="-fx-background-color: white;" styleClass="botao" stylesheets="@../estilos/InicialTheme.css" text="Adicionar Musica" />
+                  <Button layoutX="247.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#mostrarIdMusica" style="-fx-background-color: white;" styleClass="botao" stylesheets="@../estilos/InicialTheme.css" text="Editar Musica" />
+                  <Button layoutX="378.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#apagarMusica" style="-fx-background-color: white;" styleClass="botao" stylesheets="@../estilos/InicialTheme.css" text="Excluir Musica" />
                </children>
             </AnchorPane>
+            <AnchorPane prefHeight="28.0" prefWidth="646.0" style="-fx-background-color: #36449f;" />
             <VBox alignment="TOP_CENTER" layoutX="8.0" layoutY="39.0" prefHeight="200.0" prefWidth="35.0" spacing="10.0">
                <children>
                   <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -93,12 +88,21 @@
                   <Image url="@../imagens/icons8-sair-30.png" />
                </image>
             </ImageView>
-            <Button layoutX="408.0" layoutY="214.0" mnemonicParsing="false" onMouseClicked="#trocarImage" text="Button">
-               <effect>
-                  <ImageInput />
-               </effect>
-            </Button>
+            <Text fill="WHITE" layoutX="254.0" layoutY="65.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Minhas Musicas" textAlignment="CENTER" wrappingWidth="186.26800537109375">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Text>
+            <TableView fx:id="tabelaMusica" layoutX="66.0" layoutY="89.0" prefHeight="239.0" prefWidth="572.0">
+              <columns>
+                <TableColumn fx:id="colunaNome" prefWidth="209.0" text="Nome" />
+                <TableColumn fx:id="colunaAlbum" prefWidth="88.0" text="Album" />
+                  <TableColumn fx:id="colunaArtista" prefWidth="91.0" text="Artista" />
+                  <TableColumn fx:id="colunaData" prefWidth="115.0" text="Adicionada em" />
+                  <TableColumn fx:id="colunaDuracao" minWidth="0.0" prefWidth="68.0" text="Duração" />
+              </columns>
+            </TableView>
          </children>
-    </AnchorPane>
-  </children>
+      </AnchorPane>
+   </children>
 </VBox>

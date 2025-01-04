@@ -1,6 +1,8 @@
 package soundaura;
 
-public class Musica {
+import java.io.File;
+
+public class musica {
     private String nome;
     private String artista;
     private String album;
@@ -8,8 +10,10 @@ public class Musica {
     private String dataAdicionada;
     private String genero;
     private String filepath;
+    private Integer id;
+    private boolean arquivoDisponivel;
 
-    public Musica(String nome, String artista, String album, String duracao, String dataAdicionada, String genero, String filepath) {
+    public musica(String nome, String artista, String album, String duracao, String dataAdicionada, String genero, String filepath, Integer id) {
         this.nome = nome;
         this.artista = artista;
         this.album = album;
@@ -17,10 +21,16 @@ public class Musica {
         this.dataAdicionada = dataAdicionada;
         this.genero = genero;
         this.filepath = filepath;
+        this.id = id;
+        this.arquivoDisponivel = new File(filepath).exists(); // verifica de o arquivo existe de fato no dispositivo conectado a conta
     }
 
     public String getNome() {
         return nome;
+    }
+
+    public boolean arquivoDisponivel(){
+        return arquivoDisponivel;
     }
 
     public String getAlbum() {
@@ -45,5 +55,9 @@ public class Musica {
 
     public String getDataAdicionada() {
         return dataAdicionada;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }
