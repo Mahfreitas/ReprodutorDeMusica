@@ -263,8 +263,8 @@ public class Musicas_Controller {
     }
 
     @FXML
-    void irParaMusica(MouseEvent event) {
-
+    void abrirReprodutor(MouseEvent event) {
+        GestorDeTelas gestorDeTelas = new GestorDeTelas();
+        gestorDeTelas.abrirReprodutor();
     }
-
 }

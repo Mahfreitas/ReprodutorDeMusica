@@ -33,10 +33,6 @@
 -->
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -48,86 +44,47 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.DetalhesMusica_Controller">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="375.0" prefWidth="523.0" styleClass="background" stylesheets="@../estilos/InicialTheme.css" VBox.vgrow="ALWAYS">
          <children>
-            <Text fill="WHITE" layoutX="142.0" layoutY="94.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Adicionando detalhes da música" textAlignment="CENTER" wrappingWidth="355.26800537109375">
+            <Text fill="WHITE" layoutX="143.0" layoutY="123.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Adicionando detalhes da música" textAlignment="CENTER" wrappingWidth="355.26800537109375">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Text>
-            <Circle fill="WHITE" layoutX="320.0" layoutY="44.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
-            <ImageView fitHeight="75.0" fitWidth="86.0" layoutX="278.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <Circle fill="WHITE" layoutX="321.0" layoutY="73.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
+            <ImageView fitHeight="75.0" fitWidth="86.0" layoutX="279.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../imagens/LogoApp.png" />
+                  <Image url="@imagens/LogoApp.png" />
                </image>
             </ImageView>
-            <TextField fx:id="campoNome" layoutX="140.0" layoutY="129.0" />
-            <TextField fx:id="campoAlbum" layoutX="350.0" layoutY="129.0" />
-            <TextField fx:id="campoArtista" layoutX="140.0" layoutY="195.0" />
-            <TextField fx:id="campoGenero" layoutX="350.0" layoutY="195.0" />
-            <Text fill="WHITE" layoutX="140.0" layoutY="117.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Nome da música" wrappingWidth="149.0">
+            <TextField fx:id="campoNome" layoutX="141.0" layoutY="158.0" />
+            <TextField fx:id="campoAlbum" layoutX="351.0" layoutY="158.0" />
+            <TextField fx:id="campoArtista" layoutX="141.0" layoutY="224.0" />
+            <TextField fx:id="campoGenero" layoutX="351.0" layoutY="224.0" />
+            <Text fill="WHITE" layoutX="141.0" layoutY="146.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Nome da música" wrappingWidth="149.0">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="140.0" layoutY="183.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Artista da música" wrappingWidth="149.0">
+            <Text fill="WHITE" layoutX="141.0" layoutY="212.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Artista da música" wrappingWidth="149.0">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="350.0" layoutY="117.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Albúm da música" wrappingWidth="149.0">
+            <Text fill="WHITE" layoutX="351.0" layoutY="146.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Albúm da música" wrappingWidth="149.0">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="350.0" layoutY="183.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Genero da música" wrappingWidth="149.0">
+            <Text fill="WHITE" layoutX="351.0" layoutY="212.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Genero da música" wrappingWidth="149.0">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <Button layoutX="190.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#cancelar" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Cancelar" />
-            <Button layoutX="400.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#salvarMusica" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Salvar" />
-            <TextField fx:id="campoDuracao" layoutX="245.0" layoutY="266.0" />
-            <Text fill="WHITE" layoutX="245.0" layoutY="253.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Duracao Musica" wrappingWidth="149.0">
+            <Button layoutX="191.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#cancelar" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Cancelar" />
+            <Button layoutX="401.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#salvarMusica" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Salvar" />
+            <TextField fx:id="campoDuracao" layoutX="246.0" layoutY="295.0" />
+            <Text fill="WHITE" layoutX="246.0" layoutY="282.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Duracao Musica" wrappingWidth="149.0">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

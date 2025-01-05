@@ -33,7 +33,6 @@
 -->
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.ImageInput?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -63,41 +62,36 @@
                <children>
                   <ImageView fitHeight="28.0" fitWidth="32.0" onMouseClicked="#IrParaPrincipal" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imagens/icons8-casa-24.png" />
+                        <Image url="@imagens/icons8-casa-24.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#IrParaConta" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imagens/icons8-usuário-30.png" />
+                        <Image url="@imagens/icons8-usuário-30.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#IrParaPlaylist" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imagens/icons8-lista-de-reprodução-inteligente-50.png" />
+                        <Image url="@imagens/icons8-lista-de-reprodução-inteligente-50.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#IrParaMusicas" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imagens/icons8-nota-musical-30.png" />
+                        <Image url="@imagens/icons8-nota-musical-30.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#IrParaConfiguracoes" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imagens/icons8-engrenagem-24.png" />
+                        <Image url="@imagens/icons8-engrenagem-24.png" />
                      </image>
                   </ImageView>
                </children>
             </VBox>
             <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="10.0" layoutY="356.0" onMouseClicked="#Sair" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../imagens/icons8-sair-30.png" />
+                  <Image url="@imagens/icons8-sair-30.png" />
                </image>
             </ImageView>
-            <Button layoutX="408.0" layoutY="214.0" mnemonicParsing="false" onMouseClicked="#trocarImage" text="Button">
-               <effect>
-                  <ImageInput />
-               </effect>
-            </Button>
          </children>
     </AnchorPane>
   </children>

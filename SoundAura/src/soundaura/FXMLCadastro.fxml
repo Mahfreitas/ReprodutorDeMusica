@@ -37,6 +37,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -99,7 +100,7 @@
                         <Circle fill="WHITE" layoutX="317.0" layoutY="50.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
                         <ImageView fitHeight="75.0" fitWidth="86.0" layoutX="277.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imagens/LogoApp.png" />
+                              <Image url="@imagens/LogoApp.png" />
                            </image>
                         </ImageView>
                         <Text fill="WHITE" layoutX="261.0" layoutY="98.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="SoundAura" textAlignment="CENTER" wrappingWidth="117.26800537109375">
@@ -119,7 +120,6 @@
                               <Font name="System Bold" size="11.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="TextFieldSenhaCad" layoutX="246.0" layoutY="184.0" />
                         <Text fill="WHITE" layoutX="246.0" layoutY="231.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Confirme sua senha" wrappingWidth="117.26800537109375">
                            <font>
                               <Font name="System Bold" size="11.0" />
@@ -128,6 +128,7 @@
                         <TextField fx:id="TextFieldConfSenhaCad" layoutX="246.0" layoutY="236.0" />
                         <Text fill="WHITE" layoutX="261.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ja possui conta?" textAlignment="CENTER" wrappingWidth="117.26800537109375" />
                         <Hyperlink fx:id="LinkLogin2" layoutX="276.0" layoutY="331.0" onAction="#IrParaLogin" style="-fx-underline: true;" text="Faça login aqui" textFill="WHITE" />
+                        <PasswordField fx:id="TextFieldSenhaCad" layoutX="245.0" layoutY="184.0" />
                      </children>
                   </Pane>
                </children>

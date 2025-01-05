@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="250.0" prefWidth="380.0" style="-fx-background-color: black;" stylesheets="@../estilos/InicialTheme.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.Reprodutor_Controller">
+   <children>
+      <Label fx:id="nomeMusica" layoutX="14.0" layoutY="69.0" prefHeight="48.0" prefWidth="212.0" text="Nome da Musica" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Slider fx:id="tempoMusica" layoutX="14.0" layoutY="117.0" prefHeight="16.0" prefWidth="352.0" />
+      <Text layoutX="254.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Controle de Volume" />
+      <Slider fx:id="seletorVolume" layoutX="243.0" layoutY="187.0" prefHeight="16.0" prefWidth="120.0" value="30.0" />
+      <Label fx:id="tempoAtual" layoutX="14.0" layoutY="138.0" prefHeight="17.0" prefWidth="31.0" text="00:00" textAlignment="CENTER" textFill="WHITE" />
+      <Label fx:id="tempoTotal" layoutX="330.0" layoutY="134.0" prefHeight="25.0" prefWidth="31.0" text="00:00" textAlignment="CENTER" textFill="WHITE" />
+      <ImageView fx:id="audio" fitHeight="35.0" fitWidth="30.0" layoutX="211.0" layoutY="180.0" onMouseClicked="#mudo" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagens/volume.png" />
+         </image>
+      </ImageView>
+      <MediaView fx:id="mediaView" fitHeight="1.0" fitWidth="1.0" />
+      <ImageView fx:id="playPauseBotao" fitHeight="38.0" fitWidth="31.0" layoutX="63.0" layoutY="179.0" onMouseClicked="#playPause" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagens/pause.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="130.0" layoutY="179.0" onMouseClicked="#proxima" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagens/proxima.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="24.0" layoutY="179.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagens/anterior.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="97.0" layoutY="182.0" onMouseClicked="#parar" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagens/parar.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="345.0" layoutY="6.0" onMouseClicked="#sair" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagens/sair.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="314.0" layoutY="6.0" onMouseClicked="#minimizar" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagens/minimizar.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
