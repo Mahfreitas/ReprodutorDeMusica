@@ -32,12 +32,12 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -48,14 +48,48 @@
          <children>
             <AnchorPane layoutX="55.0" layoutY="345.0" prefHeight="55.0" prefWidth="591.0" style="-fx-background-color: #36449f;">
                <children>
-                  <Button layoutX="29.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#adicionarMusica" style="-fx-background-color: white;" styleClass="botao" stylesheets="@../estilos/InicialTheme.css" text="Adicionar Musica" />
-                  <Button layoutX="155.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#mostrarIdMusica" style="-fx-background-color: white;" styleClass="botao" stylesheets="@../estilos/InicialTheme.css" text="Editar Musica" />
-                  <Button layoutX="263.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#apagarMusica" style="-fx-background-color: white;" styleClass="botao" stylesheets="@../estilos/InicialTheme.css" text="Excluir Musica" />
-                  <Button layoutX="449.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#abrirReprodutor" style="-fx-background-color: white;" styleClass="botao" stylesheets="@../estilos/InicialTheme.css" text="Abrir Reprodutor" />
+                  <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="44.0" prefWidth="131.0" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#adicionarMusica" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imagens/icons8-adicionar-album-32.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="40.0" fitWidth="44.0" onMouseClicked="#mostrarIdMusica" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imagens/icons8-editar-64.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#apagarMusica" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imagens/icons8-lixeira-50.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="457.0" layoutY="7.0" prefHeight="44.0" prefWidth="125.0" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="38.0" onMouseClicked="#mostrarIdMusica" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imagens/icons8-coração-32.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="37.0" fitWidth="36.0" onMouseClicked="#adicionarFila" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imagens/icons8-adicionar-30.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#abrirReprodutor" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imagens/icons8-play-dentro-de-um-círculo-50.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="28.0" prefWidth="646.0" style="-fx-background-color: #36449f;" />
-            <VBox alignment="TOP_CENTER" layoutX="8.0" layoutY="39.0" prefHeight="200.0" prefWidth="35.0" spacing="10.0">
+            <VBox alignment="TOP_CENTER" layoutX="9.0" layoutY="39.0" prefHeight="200.0" prefWidth="35.0" spacing="10.0">
                <children>
                   <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -82,19 +116,19 @@
                         <Image url="@imagens/icons8-engrenagem-24.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#abrirReprodutor" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imagens/fones.png" />
+                     </image>
+                  </ImageView>
                </children>
             </VBox>
-            <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="10.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@imagens/icons8-sair-30.png" />
-               </image>
-            </ImageView>
             <Text fill="WHITE" layoutX="254.0" layoutY="65.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Minhas Musicas" textAlignment="CENTER" wrappingWidth="186.26800537109375">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Text>
-            <TableView fx:id="tabelaMusica" layoutX="66.0" layoutY="89.0" prefHeight="239.0" prefWidth="572.0">
+            <TableView fx:id="tabelaMusica" layoutX="55.0" layoutY="89.0" prefHeight="239.0" prefWidth="583.0">
               <columns>
                 <TableColumn fx:id="colunaNome" prefWidth="209.0" text="Nome" />
                 <TableColumn fx:id="colunaAlbum" prefWidth="88.0" text="Album" />
@@ -103,6 +137,11 @@
                   <TableColumn fx:id="colunaDuracao" minWidth="0.0" prefWidth="68.0" text="Duração" />
               </columns>
             </TableView>
+            <ImageView fitHeight="44.0" fitWidth="52.0" layoutX="5.0" layoutY="350.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imagens/icons8-logout-64.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

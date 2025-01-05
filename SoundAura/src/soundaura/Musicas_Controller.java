@@ -19,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -51,6 +52,9 @@ public class Musicas_Controller {
     private ObservableList<musica> musicas = FXCollections.observableArrayList();
 
     int idUsuarioAtual = SessaoUsuario.getInstancia().getIdUsuario();
+    Reprodutor_Controller reprodutor = Reprodutor_Controller.getInstance();
+    GestorDeTelas gestorDeTelas = new GestorDeTelas();
+    
 
     private static Connection connectToDatabase() throws SQLException {
         String url = MySQL.getUrl();
@@ -60,9 +64,28 @@ public class Musicas_Controller {
         return DriverManager.getConnection(url, user, password);
     }
 
+    private String formatarDuracao(double duracaoSegundos) {
+        int minutos = (int) (duracaoSegundos / 60);
+        int segundos = (int) (duracaoSegundos % 60);
+        return String.format("%02d:%02d", minutos, segundos);
+    }
+
+    private void configurarDuploClique() {
+        tabelaMusica.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                musica musicaSelecionada = tabelaMusica.getSelectionModel().getSelectedItem();
+                if (musicaSelecionada != null) {
+                    gestorDeTelas.abrirReprodutor();
+                    reprodutor.reproducaoDireta(musicaSelecionada.getFilepath(), musicaSelecionada.getNome());
+                }
+            }
+        });
+    }
+
     public void initialize() {
         configurarTabela();
         carregarMusicasDoBanco();
+        configurarDuploClique();
     }
 
     public void configurarTabela() {
@@ -127,6 +150,7 @@ public class Musicas_Controller {
             }
         });
     }
+    
     @FXML
     void abrirJanelaDetalhesMusica(File arquivoSelecionado) {
         try {
@@ -213,10 +237,10 @@ public class Musicas_Controller {
         confirmacao.setContentText("Essa ação não pode ser desfeita.");
         
         if (confirmacao.showAndWait().filter(response -> response == ButtonType.OK).isPresent()) {
-            // 1. Apagar da ListView
+            // apagar da ListView
             tabelaMusica.getItems().remove(musicaSelecionada);
 
-            // 2. Apagar do banco de dados
+            // apagar do banco de dados
             try (Connection conn = connectToDatabase()) {
                 String query = "DELETE FROM musica WHERE id_musica = ?";
                 try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -238,7 +262,7 @@ public class Musicas_Controller {
                 erro.showAndWait();
             }
 
-            // 3. Apagar o arquivo da pasta
+            // apagar o arquivo da pasta raiz
             File arquivoMusica = new File(musicaSelecionada.getFilepath());
             if (arquivoMusica.exists()) {
                 if (arquivoMusica.delete()) {
@@ -255,16 +279,14 @@ public class Musicas_Controller {
             sucesso.showAndWait();
         }
     }
-    
-    private String formatarDuracao(double duracaoSegundos) {
-        int minutos = (int) (duracaoSegundos / 60);
-        int segundos = (int) (duracaoSegundos % 60);
-        return String.format("%02d:%02d", minutos, segundos);
-    }
 
     @FXML
     void abrirReprodutor(MouseEvent event) {
-        GestorDeTelas gestorDeTelas = new GestorDeTelas();
         gestorDeTelas.abrirReprodutor();
+    }
+
+    @FXML
+    void adicionarFila(MouseEvent event) {
+        
     }
 }
