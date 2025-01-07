@@ -56,7 +56,7 @@
                         <Button mnemonicParsing="false" onAction="#IrParaConta" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Conta" />
                         <Button mnemonicParsing="false" onAction="#IrParaPlaylist" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="PlayLists" />
                         <Button mnemonicParsing="false" onAction="#IrParaMusicas" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Músicas" />
-                        <Button mnemonicParsing="false" onAction="#IrParaConfiguracoes" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Reprodutor" />
+                        <Button mnemonicParsing="false" onAction="#AbrirReprodutor" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Reprodutor" />
                         <Button mnemonicParsing="false" onAction="#IrParaConfiguracoes" prefHeight="27.0" prefWidth="165.0" styleClass="botaoMenu" stylesheets="@../estilos/InicialTheme.css" text="Configurações" />
                      </children>
                   </VBox>
