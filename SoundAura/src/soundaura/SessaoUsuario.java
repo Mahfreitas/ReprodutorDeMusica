@@ -2,6 +2,7 @@ package soundaura;
 public class SessaoUsuario {
     private static SessaoUsuario instancia;
     private int idUsuario;
+    private playlist playlistAtual;
 
     private SessaoUsuario() {}
 
@@ -13,7 +14,7 @@ public class SessaoUsuario {
     }
 
     public int getIdUsuario() {
-        return idUsuario;
+        return 1;
     }
 
     public void setIdUsuario(int idUsuario) {
@@ -25,5 +26,13 @@ public class SessaoUsuario {
         System.out.println("Encerrando sessão.");
         idUsuario = 0;
         instancia = null;
+    }
+
+    public playlist getPlaylistAtual() {
+        return playlistAtual;
+    }
+
+    public void setPlaylistAtual(playlist playlistAtual) {
+        this.playlistAtual = playlistAtual;
     }
 }

@@ -27,7 +27,7 @@ public class Principal_Controller {
     @FXML
     void IrParaPlaylist(ActionEvent event) {
         try {
-            Parent Tela = FXMLLoader.load(getClass().getResource(""));
+            Parent Tela = FXMLLoader.load(getClass().getResource("FXMLPlaylist.fxml"));
             Scene Cena = new Scene(Tela);
             Stage Stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Stage.setScene(Cena);

@@ -4,15 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class FilaDeMusicas_Controller {
-
-    @FXML
-    private Button botaoTirarMusica;
 
     @FXML
     private TableColumn<musica, String> colunaArtista;
@@ -56,7 +52,7 @@ public class FilaDeMusicas_Controller {
     }
 
     @FXML
-    void tirarDaFila(ActionEvent event) {
-
+    void esvaziarFila(ActionEvent event) {
+        filaDeMusicas.limparFila();
     }
 }

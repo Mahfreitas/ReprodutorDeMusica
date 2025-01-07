@@ -73,4 +73,26 @@ public class GestorDeTelas {
             }
         }
     }
+
+        private Stage addPlayStage = null;
+    
+        public void addPlayStage() {
+            if (addPlayStage != null && addPlayStage.isShowing()) {
+                addPlayStage.toFront();
+            } else {
+                try {
+                    // Carrega o FXML da tela da fila
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAddMsPlaylist.fxml"));
+
+                    Parent root = loader.load();
+                    addPlayStage = new Stage();
+                    addPlayStage.setScene(new Scene(root));
+                    addPlayStage.initStyle(StageStyle.UTILITY);  // Estilo para janela normal
+                    addPlayStage.show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 }

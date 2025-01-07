@@ -48,6 +48,7 @@ public class Reprodutor_Controller {
     private MediaPlayer mediaPlayer;
     private static Reprodutor_Controller instance;
     private FilaMusicasUnica filaDeMusicas = FilaMusicasUnica.getInstance();
+    GestorDeTelas gestor = new GestorDeTelas();
 
     private Reprodutor_Controller() {}
     // a gnt utiliza um synchronized pois permite a utilizaçao de multithread (pois dessa forma varios processos podem ser executados ao mesmo tempo)
@@ -123,21 +124,10 @@ public class Reprodutor_Controller {
         tocarMusica(musica);
     }
 
-    private void alterarMusicaAtual() {
-        musica musicaAtual = filaDeMusicas.getFila().get(0); // pega a primeira da fila
-
-        Media media = new Media(new File(musicaAtual.getFilepath()).toURI().toString()); // pega caminho
-        mediaPlayer = new MediaPlayer(media);
-        mediaView.setMediaPlayer(mediaPlayer);
-
-        definirTempo();
-        formartarNomeMusica(musicaAtual.getNome()); // trocar o nome da musica
-        mediaPlayer.play(); // toca
-
-        filaDeMusicas.getFila().remove(0); // remove para nao gerar um looping de reprodução
-    }
-
     public void tocarMusica(musica musica) {
+        if (mediaPlayer != null){
+            parar();
+        }
         Media media = new Media(new File(musica.getFilepath()).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
@@ -267,7 +257,7 @@ public class Reprodutor_Controller {
     public void sair(){
         if (mediaPlayer != null) {
             mediaPlayer.stop();
-            mediaPlayer.dispose();
+            mediaPlayer = null;
         }
         Stage stage = (Stage)AnchorReprodutor.getScene().getWindow();
         stage.close();
@@ -276,5 +266,14 @@ public class Reprodutor_Controller {
     @FXML
     public void minimizar(){
         ((Stage)AnchorReprodutor.getScene().getWindow()).toBack();
+    }
+
+    @FXML
+    public void abrirFila(){
+        gestor.abrirTelaFila();
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 }

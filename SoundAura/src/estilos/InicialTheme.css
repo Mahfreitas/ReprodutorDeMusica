@@ -16,21 +16,16 @@
     -fx-background-color: #acacac;
 }
 
-.list-view {
-    -fx-background-color: black; /* Cor de fundo */
-    -fx-border-color: #333; /* Cor da borda */
-    -fx-border-width: 2px; /* Espessura da borda */
-    -fx-font-size: 14px; /* Tamanho da fonte */
-    -fx-cell-size: 40px; /* Tamanho das células */
+.table-view .column-header {
+    -fx-background-color: #4354bf;  
 }
-
-.list-cell {
-    -fx-border-color: #333; /* Cor de fundo das células */
-    -fx-background-color: black; /* Cor de fundo */
-    -fx-padding: 10px; /* Espaçamento interno das células */
-    -fx-text-fill: white;
+.table-view .column-header .label {
+    -fx-text-fill: white;  
 }
-
-.list-view .cell:selected {
-    -fx-background-color:  #36449f; /* Cor de seleção */
+.table-view .table-cell:hover {
+    -fx-background-color: #acacac;  /* Cor de fundo ao passar o mouse */
+}
+.table-view .table-cell .text {
+    -fx-font-size: 14px;  /* Tamanho da fonte */
+    -fx-text-fill: white;  /* Cor do texto */
 }

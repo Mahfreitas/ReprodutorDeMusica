@@ -18,6 +18,10 @@ public class FilaMusicasUnica {
         return instancia;
     }
 
+    public void limparFila(){
+        filaDeMusicas.clear();
+    }
+
     // aqui é basicamente pra gnt pegar fila basicamente
     public ObservableList<musica> getFila() {
         return filaDeMusicas;

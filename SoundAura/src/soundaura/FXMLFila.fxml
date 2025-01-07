@@ -33,66 +33,47 @@
 -->
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+<AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="540.0" style="-fx-background-color: black;">
          <children>
-            <TableView fx:id="tableViewFila" layoutX="76.0" layoutY="78.0" prefHeight="219.0" prefWidth="488.0">
+            <TableView fx:id="tableViewFila" layoutX="53.0" layoutY="104.0" prefHeight="219.0" prefWidth="435.0" stylesheets="@../estilos/InicialTheme.css">
               <columns>
-                <TableColumn fx:id="colunaTitulo" prefWidth="292.0" text="Musicas" />
-                  <TableColumn fx:id="colunaArtista" prefWidth="195.0" text="Artistas" />
+                <TableColumn fx:id="colunaTitulo" prefWidth="268.0" text="Musicas" />
+                  <TableColumn fx:id="colunaArtista" prefWidth="166.0" text="Artistas" />
               </columns>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#removerMusica" text="Remover da Fila" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
             </TableView>
-            <Button fx:id="botaoTirarMusica" layoutX="276.0" layoutY="322.0" mnemonicParsing="false" onAction="#removerMusica" text="Excluir da Fila" />
+            <Button fx:id="botaoTirarMusica1" layoutX="53.0" layoutY="332.0" mnemonicParsing="false" onAction="#esvaziarFila" styleClass="botao" stylesheets="@../estilos/InicialTheme.css" text="Esvaziar Fila" textFill="WHITE" />
+            <Text fill="WHITE" layoutX="186.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;;" text="Fila de Musicas">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Text>
+            <Circle fill="WHITE" layoutX="80.0" layoutY="52.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
+            <ImageView fitHeight="75.0" fitWidth="86.0" layoutX="38.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imagens/LogoApp.png" />
+               </image>
+            </ImageView>
          </children>
     </AnchorPane>
-  </children>
-</VBox>
+   </children>
+</AnchorPane>

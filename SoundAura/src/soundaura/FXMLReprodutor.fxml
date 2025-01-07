@@ -88,5 +88,10 @@
             <Image url="@imagens/minimizar.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="17.0" layoutY="6.0" onMouseClicked="#abrirFila" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagens/icons8-lista-de-música-de-salão-30.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,6 +60,7 @@ public class Musicas_Controller {
     Reprodutor_Controller reprodutor = Reprodutor_Controller.getInstance();
     private FilaMusicasUnica filaDeMusicas = FilaMusicasUnica.getInstance();
     GestorDeTelas gestorDeTelas = new GestorDeTelas();
+    
     
 
     private static Connection connectToDatabase() throws SQLException {
@@ -147,6 +149,9 @@ public class Musicas_Controller {
                     if (!musica.arquivoDisponivel()) {
                         setDisable(true);
                         setStyle("-fx-background-color: gray;");
+                    } else if (musica.isFavorita()) {
+                        setDisable(false);  
+                        setStyle("-fx-background-color: #ef5350");
                     } else {
                         setDisable(false);  
                         setStyle("");
@@ -155,7 +160,7 @@ public class Musicas_Controller {
             }
         });
     }
-    
+
     @FXML
     void abrirJanelaDetalhesMusica(File arquivoSelecionado) {
         try {
@@ -198,27 +203,6 @@ public class Musicas_Controller {
             abrirJanelaDetalhesMusica(arquivoSelecionado);
         }
 
-    }
-
-    @FXML
-    void mostrarIdMusica(MouseEvent event) {
-        musica musicaSelecionada = tabelaMusica.getSelectionModel().getSelectedItem();
-    
-        if (musicaSelecionada == null) {
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Nenhuma música selecionada");
-            alerta.setHeaderText("Selecione uma música para visualizar o ID.");
-            alerta.showAndWait();
-            return;
-        }
-    
-        // Extrair o ID da música (usando o nome do arquivo)
-        Integer idMusica = musicaSelecionada.getId();
-    
-        Alert alertaId = new Alert(Alert.AlertType.INFORMATION);
-        alertaId.setTitle("ID da Música");
-        alertaId.setHeaderText("ID da música selecionada:" + idMusica);
-        alertaId.showAndWait();
     }
     
     @FXML
@@ -285,8 +269,60 @@ public class Musicas_Controller {
     }
 
     @FXML
+    void marcarDesmarcarFavorito(MouseEvent event) {
+        musica musicaSelecionada = tabelaMusica.getSelectionModel().getSelectedItem();
+
+        if (musicaSelecionada == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Nenhuma música selecionada");
+            alerta.setHeaderText("Selecione uma música para adicionar na fila.");
+            alerta.showAndWait();
+            return;
+        }
+        try (Connection conn = connectToDatabase()) {
+            String verificarQuery = "SELECT * FROM musicasFavoritas WHERE id_usuario = ? AND id_musica = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(verificarQuery)) {
+                stmt.setInt(1, idUsuarioAtual);
+                stmt.setInt(2, musicaSelecionada.getId());
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    String removerQuery = "DELETE FROM musicasFavoritas WHERE id_usuario = ? AND id_musica = ?";
+                    try (PreparedStatement deleteStmt = conn.prepareStatement(removerQuery)) {
+                        deleteStmt.setInt(1, idUsuarioAtual);
+                        deleteStmt.setInt(2, musicaSelecionada.getId());
+                        deleteStmt.executeUpdate();
+                        musicaSelecionada.setFavorita(false);
+                    }
+                } else {
+                    String adicionaQuery = "INSERT INTO musicasFavoritas (id_usuario, id_musica) VALUES (?, ?)";
+                    try (PreparedStatement insertStmt = conn.prepareStatement(adicionaQuery)) {
+                        insertStmt.setInt(1, idUsuarioAtual);
+                        insertStmt.setInt(2, musicaSelecionada.getId());
+                        insertStmt.executeUpdate();
+                        musicaSelecionada.setFavorita(true);
+                    }
+                }
+                tabelaMusica.refresh();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Erro");
+            alerta.setHeaderText("Erro ao alterar status de favorita");
+            alerta.setContentText("Ocorreu um erro ao tentar marcar ou desmarcar a música como favorita.");
+            alerta.showAndWait();
+        }
+}
+
+    @FXML
     void abrirReprodutor(MouseEvent event) {
         gestorDeTelas.abrirReprodutor();
+    }
+
+    @FXML
+    void abrirFila(MouseEvent event) {
+        reprodutor.abrirFila();
     }
 
     @FXML
@@ -301,7 +337,13 @@ public class Musicas_Controller {
             return;
         }
         filaDeMusicas.adicionarMusica(musicaSelecionada);
-        gestorDeTelas.abrirTelaFila();
+        
+        if (filaDeMusicas.getFila().size() == 1 && reprodutor.getMediaPlayer() == null) {
+            gestorDeTelas.abrirReprodutor();
+            reprodutor.tocarMusica(musicaSelecionada);  // Toca a música automaticamente
+            filaDeMusicas.getFila().remove(0);
+        }
+        reprodutor.abrirFila();
     }
 
     @FXML
@@ -319,5 +361,9 @@ public class Musicas_Controller {
                 return;
             }
         }
+    }
+
+    public ObservableList<musica> getMusicas() {
+        return musicas;
     }
 }

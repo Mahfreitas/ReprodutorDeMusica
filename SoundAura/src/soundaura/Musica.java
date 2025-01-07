@@ -11,6 +11,7 @@ public class musica {
     private String genero;
     private String filepath;
     private Integer id;
+    private boolean favorita;
     private boolean arquivoDisponivel;
 
     public musica(String nome, String artista, String album, String duracao, String dataAdicionada, String genero, String filepath, Integer id) {
@@ -59,5 +60,16 @@ public class musica {
 
     public Integer getId() {
         return id;
+    }
+
+    public boolean getFavorita(){
+        return favorita;
+    }
+
+    public void setFavorita(boolean favorita) {
+        this.favorita = favorita;
+    }
+    public boolean isFavorita() {
+        return favorita;
     }
 }

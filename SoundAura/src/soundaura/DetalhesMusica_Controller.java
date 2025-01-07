@@ -171,5 +171,4 @@ public class DetalhesMusica_Controller {
         Stage stage = (Stage) campoNome.getScene().getWindow();
         stage.close();
     }
-
 }
