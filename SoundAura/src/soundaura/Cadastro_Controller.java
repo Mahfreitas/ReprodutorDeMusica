@@ -51,29 +51,17 @@ public class Cadastro_Controller {
     private PasswordField TextFieldSenhaCad;
 
     @FXML
-    void IrParaLogin(ActionEvent event) {
-        try {
-            Parent Tela = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
-            Scene Cena = new Scene(Tela);
-            Stage Stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Stage.setScene(Cena);
-            Stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        private void IrParaLogin() {
+            try {
+                Parent Tela = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
+                Scene Cena = new Scene(Tela);
+                Stage stage = (Stage) PaneTopoTela.getScene().getWindow();
+                stage.setScene(Cena);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-    private void IrParaPrincipal(ActionEvent event) {
-        try {
-            Parent Tela = FXMLLoader.load(getClass().getResource("FXMLInicial.fxml"));
-            Scene Cena = new Scene(Tela);
-            Stage Stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Stage.setScene(Cena);
-            Stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     void RealizarCadastro(ActionEvent event) {
@@ -103,7 +91,7 @@ public class Cadastro_Controller {
                                 cadastroErro2.showAndWait();
                             } else {
                                 String insertQuery = "INSERT INTO usuario (email_usuario, senha_usuario) VALUES (?, ?)";
-                                try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
+                                try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
                                     insertStmt.setString(1, email);
                                     insertStmt.setString(2, senha);
                                     insertStmt.executeUpdate();
@@ -117,15 +105,13 @@ public class Cadastro_Controller {
                                     try (ResultSet chave_Primaria = insertStmt.getGeneratedKeys()) {
                                         if (chave_Primaria.next()) {
                                             int idUsuario = chave_Primaria.getInt(1);
-                                            SessaoUsuario.getInstancia().setIdUsuario(idUsuario);
-                                            System.out.println("ID configurado no login: " + SessaoUsuario.getInstancia().getIdUsuario());
                                             String homeDir = System.getProperty("user.home");
                                             File novaPasta = new File(homeDir + File.separator + "MinhasMusicasSoundAura" + File.separator + "Usuario_" + idUsuario);
                                             if (!novaPasta.exists()) {
                                                 novaPasta.mkdir();
                                             }
 
-                                            String insertPlaylistQuery = "INSERT INTO playlists (nome_playlist, usuario_id) VALUES (?, ?)";
+                                            String insertPlaylistQuery = "INSERT INTO playlist (nome_playlist, id_usuario) VALUES (?, ?)";
                                             try (PreparedStatement playlistStmt = conn.prepareStatement(insertPlaylistQuery)) {
                                                 playlistStmt.setString(1, "Minhas Favoritas");
                                                 playlistStmt.setInt(2, idUsuario);
@@ -135,7 +121,7 @@ public class Cadastro_Controller {
                                             throw new SQLException("Erro ao obter o ID do usuário inserido.");
                                         }
                                     }
-                                    IrParaPrincipal(event);
+                                    IrParaLogin();
                                 }
                             }
                         }
