@@ -1,6 +1,5 @@
 package soundaura;
 
-import java.awt.print.PrinterIOException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
