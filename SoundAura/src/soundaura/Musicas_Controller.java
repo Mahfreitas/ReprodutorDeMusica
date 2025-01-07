@@ -19,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
@@ -30,6 +31,9 @@ import javafx.stage.Stage;
 public class Musicas_Controller {
     @FXML
     private TextField campoMusica;
+
+    @FXML
+    private ImageView imagemTocar;
 
     @FXML
     private TableColumn<musica, String> colunaAlbum;
@@ -53,6 +57,7 @@ public class Musicas_Controller {
 
     int idUsuarioAtual = SessaoUsuario.getInstancia().getIdUsuario();
     Reprodutor_Controller reprodutor = Reprodutor_Controller.getInstance();
+    private FilaMusicasUnica filaDeMusicas = FilaMusicasUnica.getInstance();
     GestorDeTelas gestorDeTelas = new GestorDeTelas();
     
 
@@ -72,11 +77,11 @@ public class Musicas_Controller {
 
     private void configurarDuploClique() {
         tabelaMusica.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+            if ((event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2)) {
                 musica musicaSelecionada = tabelaMusica.getSelectionModel().getSelectedItem();
                 if (musicaSelecionada != null) {
                     gestorDeTelas.abrirReprodutor();
-                    reprodutor.reproducaoDireta(musicaSelecionada.getFilepath(), musicaSelecionada.getNome());
+                    reprodutor.tocarMusica(musicaSelecionada);
                 }
             }
         });
@@ -218,7 +223,6 @@ public class Musicas_Controller {
     
     @FXML
     void apagarMusica(MouseEvent event) {
-        // Obtenha a música selecionada na ListView
         musica musicaSelecionada = tabelaMusica.getSelectionModel().getSelectedItem();
         
         if (musicaSelecionada == null) {
@@ -230,7 +234,7 @@ public class Musicas_Controller {
             return;
         }
 
-        // Pergunta ao usuário se ele tem certeza da exclusão
+
         Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
         confirmacao.setTitle("Confirmar Exclusão");
         confirmacao.setHeaderText("Tem certeza que deseja excluir esta música?");
@@ -287,6 +291,33 @@ public class Musicas_Controller {
 
     @FXML
     void adicionarFila(MouseEvent event) {
-        
+        musica musicaSelecionada = tabelaMusica.getSelectionModel().getSelectedItem();
+
+        if (musicaSelecionada == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Nenhuma música selecionada");
+            alerta.setHeaderText("Selecione uma música para adicionar na fila.");
+            alerta.showAndWait();
+            return;
+        }
+        filaDeMusicas.adicionarMusica(musicaSelecionada);
+        gestorDeTelas.abrirTelaFila();
+    }
+
+    @FXML
+    void tocar(MouseEvent event){
+        musica musicaSelecionada = tabelaMusica.getSelectionModel().getSelectedItem();
+        if (musicaSelecionada != null) {
+            gestorDeTelas.abrirReprodutor();
+            reprodutor.tocarMusica(musicaSelecionada);
+        } else {
+            if (musicaSelecionada == null) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Nenhuma música selecionada");
+                alerta.setHeaderText("Selecione uma música para toocar.");
+                alerta.showAndWait();
+                return;
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ public class GestorDeTelas {
     private Stage reprodutorStage = null;
     private double eixoX = 0;
     private double eixoY = 0;
+
     public void abrirReprodutor() {
         if (reprodutorStage != null && reprodutorStage.isShowing()) {
             reprodutorStage.toFront();
@@ -43,6 +44,29 @@ public class GestorDeTelas {
                     }
                     
                 });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private Stage filaStage = null;
+    
+    public void abrirTelaFila() {
+        if (filaStage != null && filaStage.isShowing()) {
+            filaStage.toFront();
+        } else {
+            try {
+                // Carrega o FXML da tela da fila
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFila.fxml"));
+                loader.setController(FilaDeMusicas_Controller.getInstance());
+
+                Parent root = loader.load();
+                filaStage = new Stage();
+                filaStage.setScene(new Scene(root));
+                filaStage.initStyle(StageStyle.UTILITY);  // Estilo para janela normal
+                filaStage.show();
 
             } catch (Exception e) {
                 e.printStackTrace();

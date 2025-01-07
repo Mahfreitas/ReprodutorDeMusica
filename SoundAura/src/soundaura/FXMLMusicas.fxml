@@ -79,7 +79,7 @@
                               <Image url="@imagens/icons8-adicionar-30.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#abrirReprodutor" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imagemTocar" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#tocar" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@imagens/icons8-play-dentro-de-um-círculo-50.png" />
                            </image>

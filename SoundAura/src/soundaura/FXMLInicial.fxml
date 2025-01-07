@@ -89,7 +89,7 @@
             </VBox>
             <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="10.0" layoutY="356.0" onMouseClicked="#Sair" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@imagens/icons8-sair-30.png" />
+                  <Image url="@imagens/icons8-logout-64.png" />
                </image>
             </ImageView>
          </children>
