@@ -17,7 +17,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class Principal_Controller {
@@ -40,7 +39,9 @@ public class Principal_Controller {
     public void initialize() {
         nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         artista.setCellValueFactory(new PropertyValueFactory<>("artista"));
-        ultimaRep.setCellValueFactory(new PropertyValueFactory<>("ultimaReproducao"));
+        ultimaRep.setCellValueFactory(new PropertyValueFactory<>("ultimaRep"));
+
+        carregarHistorico();
     }
 
     private static Connection connectToDatabase() throws SQLException {
@@ -55,9 +56,9 @@ public class Principal_Controller {
             tabelaRep.getItems().clear();
             String query = "SELECT * FROM musica WHERE ultima_reproducao IS NOT NULL ORDER BY ultima_reproducao DESC";
         
-            try (Connection conn = connectToDatabase();){
+            try (Connection conn = connectToDatabase();
                 PreparedStatement stmt = conn.prepareStatement(query);
-                ResultSet rs = stmt.executeQuery(); {
+                ResultSet rs = stmt.executeQuery();) {
         
                 while (rs.next()) {
                     String nome = rs.getString("nome_musica");
@@ -69,11 +70,12 @@ public class Principal_Controller {
                     String dataAdicionada = rs.getString("horario_addMS");
                     Integer id = rs.getInt("id_musica");
                     Boolean favorita = rs.getBoolean("favorita");
+                    String ultimaRep = rs.getString("ultima_reproducao");
         
-                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita);
+                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita, ultimaRep);
                     tabelaRep.getItems().add(novaMusica);
                 }
-            }} catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 Alert erro = new Alert(Alert.AlertType.ERROR);
                 erro.setTitle("Erro ao carregar histórico");
@@ -85,7 +87,7 @@ public class Principal_Controller {
     @FXML
     public void IrParaPrincipal(ActionEvent event) {
         try {
-            Parent Tela = FXMLLoader.load(getClass().getResource("FXMLInicial.fxml"));
+            Parent Tela = FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml"));
             Scene Cena = new Scene(Tela);
             Stage Stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Stage.setScene(Cena);
@@ -160,14 +162,5 @@ public class Principal_Controller {
     public void AbrirReprodutor(ActionEvent event) {
             gestorDeTelas.abrirReprodutor();
         }
-    @FXML
-    void adicionarMusicaFIla(MouseEvent event) {
-
-    }
-
-    @FXML
-    void trocarImage(MouseEvent event) {
-
-    }
 
 }

@@ -8,9 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -123,9 +123,9 @@ public class Musicas_Controller {
                     String dataAdicionada = rs.getString("horario_addMS");
                     Integer id = rs.getInt("id_musica");
                     Boolean favorita = rs.getBoolean("favorita");
-
+                    String ultimaRep = rs.getString("ultima_reproducao");
                     
-                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita);
+                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita, ultimaRep);
                     musicas.add(novaMusica);
                 }
             }
@@ -349,30 +349,70 @@ public class Musicas_Controller {
             }
         }
     }
-    Principal_Controller principal = new Principal_Controller();
+
     @FXML
     void irParaConfiguracao(MouseEvent event) {
-        principal.IrParaConfiguracoes(new ActionEvent());
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void irParaConta(MouseEvent event) {
-        principal.IrParaConta(new ActionEvent());
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void irParaMusicas(MouseEvent event) {
-        principal.IrParaMusicas(new ActionEvent());
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLMusicas.fxml"));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void irParaPlaylist(MouseEvent event) {
-        principal.IrParaPlaylist(new ActionEvent());
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLPlaylist.fxml")); 
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void irParaPrincipal(MouseEvent event) {
-        principal.IrParaConfiguracoes(new ActionEvent());
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLInicial.fxml"));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

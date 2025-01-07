@@ -13,8 +13,9 @@ public class musica {
     private Integer id;
     private boolean favorita;
     private boolean arquivoDisponivel;
+    private String ultimaRep;
 
-    public musica(String nome, String artista, String album, String duracao, String dataAdicionada, String genero, String filepath, Integer id, Boolean favorita) {
+    public musica(String nome, String artista, String album, String duracao, String dataAdicionada, String genero, String filepath, Integer id, Boolean favorita, String ultimaRep) {
         this.nome = nome;
         this.artista = artista;
         this.album = album;
@@ -25,10 +26,15 @@ public class musica {
         this.id = id;
         this.arquivoDisponivel = new File(filepath).exists(); // verifica de o arquivo existe de fato no dispositivo conectado a conta
         this.favorita = favorita;
+        this.ultimaRep = ultimaRep;
     }
 
     public String getNome() {
         return nome;
+    }
+
+    public String getUltimaRep() {
+        return ultimaRep;
     }
 
     public boolean arquivoDisponivel(){

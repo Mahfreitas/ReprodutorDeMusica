@@ -69,7 +69,8 @@ public class AdicionarMusicasPlaylist_Controller {
                     String dataAdicionada = rs.getString("horario_addMS");
                     Integer id = rs.getInt("id_musica");
                     Boolean favorita = rs.getBoolean("favorita");
-                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita);
+                    String ultimaRep = rs.getString("ultima_reproducao");
+                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita, ultimaRep);
                     musicas.add(novaMusica);
                 }
             }

@@ -65,39 +65,39 @@
             </AnchorPane>
             <VBox alignment="TOP_CENTER" layoutX="8.0" layoutY="39.0" prefHeight="200.0" prefWidth="35.0" spacing="10.0">
                <children>
-                  <ImageView fitHeight="28.0" fitWidth="32.0" onMouseClicked="#IrParaPrincipal" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/icons8-casa-24.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#IrParaConta" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/icons8-usuário-30.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#IrParaPlaylist" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/icons8-lista-de-reprodução-inteligente-50.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#IrParaMusicas" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/icons8-nota-musical-30.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#IrParaConfiguracoes" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/fones.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#IrParaConfiguracoes" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/icons8-engrenagem-24.png" />
                      </image>
                   </ImageView>
                </children>
             </VBox>
-            <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="10.0" layoutY="356.0" onMouseClicked="#Sair" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="10.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@imagens/icons8-logout-64.png" />
                </image>

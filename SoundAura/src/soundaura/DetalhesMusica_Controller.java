@@ -141,7 +141,7 @@ public class DetalhesMusica_Controller {
                                 updateStmt.executeUpdate();
                             }
                             // adicionar a musica na lista para aparecer no View
-                            musica novaMusica = new musica(nome, artista, album, duracaoMusica, new Timestamp(System.currentTimeMillis()).toString(), genero, destinoModificado.toString(), idMusica, false);
+                            musica novaMusica = new musica(nome, artista, album, duracaoMusica, new Timestamp(System.currentTimeMillis()).toString(), genero, destinoModificado.toString(), idMusica, false, "NULL");
                             listaMusicas.add(novaMusica);
         
                             Alert sucesso = new Alert(Alert.AlertType.INFORMATION);

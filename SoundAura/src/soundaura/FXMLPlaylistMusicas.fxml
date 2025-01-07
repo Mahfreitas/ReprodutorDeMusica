@@ -107,7 +107,7 @@
                         <Image url="@imagens/icons8-nota-musical-30.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#irParaReprodutor" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#AbrirReprodutor" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/fones.png" />
                      </image>

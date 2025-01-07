@@ -1,5 +1,6 @@
 package soundaura;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -93,33 +95,55 @@ public class MusicasPlaylist_Controller {
         musicas.clear();
         try (Connection conn = connectToDatabase()) {
             String query;
-            if(usuario.getPlaylistAtual().getNome() == "Minhas Favoritas"){
+            if(usuario.getPlaylistAtual().getNome().equals("Minhas Favoritas")){
                 System.out.println("entrou");
-                query = "SELECT * FROM musica WHERE favorita = true AND id_usuario = ?";
+                query = "SELECT * FROM musica WHERE favorita = 1 AND id_usuario = ?";
+
+                try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                    stmt.setInt(1, usuario.getIdUsuario());
+                    var rs = stmt.executeQuery();
+                    musicas.clear();
+                    while (rs.next()) {
+                        String nome = rs.getString("nome_musica");
+                        String artista = rs.getString("artistas_musica");
+                        String album = rs.getString("album_musica");
+                        String genero = rs.getString("genero_musica");
+                        String duracao = rs.getString("duracao_musica");
+                        String filepath = rs.getString("filepath_musica");
+                        String dataAdicionada = rs.getString("horario_addMS");
+                        Integer id = rs.getInt("id_musica");
+                        Boolean favorita = rs.getBoolean("favorita");
+                        String ultimaRep = rs.getString("ultima_reproducao");
+                                
+                        musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita, ultimaRep);
+                        musicas.add(novaMusica);
+                    }
+                }
             } else {
                 query = "SELECT m.* " +
                         " FROM Mplaylist mp " +
                         " JOIN musica m ON mp.musica_id = m.id_musica " +
                         " WHERE mp.playlist_id = ?";
-            }
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setInt(1, usuario.getPlaylistAtual().getIdPlaylist());
-                var rs = stmt.executeQuery();
-                musicas.clear();
-                while (rs.next()) {
-                    String nome = rs.getString("nome_musica");
-                    String artista = rs.getString("artistas_musica");
-                    String album = rs.getString("album_musica");
-                    String genero = rs.getString("genero_musica");
-                    String duracao = rs.getString("duracao_musica");
-                    String filepath = rs.getString("filepath_musica");
-                    String dataAdicionada = rs.getString("horario_addMS");
-                    Integer id = rs.getInt("id_musica");
-                    Boolean favorita = rs.getBoolean("favorita");
 
-                    
-                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita);
-                    musicas.add(novaMusica);
+                try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                    stmt.setInt(1, usuario.getPlaylistAtual().getIdPlaylist());
+                    var rs = stmt.executeQuery();
+                    musicas.clear();
+                    while (rs.next()) {
+                        String nome = rs.getString("nome_musica");
+                        String artista = rs.getString("artistas_musica");
+                        String album = rs.getString("album_musica");
+                        String genero = rs.getString("genero_musica");
+                        String duracao = rs.getString("duracao_musica");
+                        String filepath = rs.getString("filepath_musica");
+                        String dataAdicionada = rs.getString("horario_addMS");
+                        Integer id = rs.getInt("id_musica");
+                        Boolean favorita = rs.getBoolean("favorita");
+                        String ultimaRep = rs.getString("ultima_reproducao");
+                                
+                        musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita, ultimaRep);
+                        musicas.add(novaMusica);
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -313,34 +337,73 @@ public class MusicasPlaylist_Controller {
     }
 
     
-    Principal_Controller principal = new Principal_Controller();
     @FXML
     void irParaConfiguracao(MouseEvent event) {
-        principal.IrParaConfiguracoes(new ActionEvent());
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void irParaConta(MouseEvent event) {
-        principal.IrParaConta(new ActionEvent());
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void irParaMusicas(MouseEvent event) {
-        principal.IrParaMusicas(new ActionEvent());
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLMusicas.fxml"));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void irParaPlaylist(MouseEvent event) {
-        principal.IrParaPlaylist(new ActionEvent());
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLPlaylist.fxml")); 
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void irParaPrincipal(MouseEvent event) {
-        principal.IrParaConfiguracoes(new ActionEvent());
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLInicial.fxml"));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    void irParaReprodutor(MouseEvent event) {
-        gestorDeTelas.abrirReprodutor();
-    }
+    public void AbrirReprodutor(ActionEvent event) {
+            gestorDeTelas.abrirReprodutor();
+        }
 }

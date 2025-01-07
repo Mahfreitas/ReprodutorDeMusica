@@ -73,7 +73,7 @@
                   <Image url="@imagens/LogoApp.png" />
                </image>
             </ImageView>
-            <Button fx:id="botaoTirarMusica11" layoutX="144.0" layoutY="332.0" mnemonicParsing="false" onAction="#esvaziarFila" styleClass="botao" stylesheets="@../estilos/InicialTheme.css" text="Tocar" textFill="WHITE" />
+            <Button fx:id="botaoTirarMusica11" layoutX="144.0" layoutY="332.0" mnemonicParsing="false" onAction="#irDireto" styleClass="botao" stylesheets="@../estilos/InicialTheme.css" text="Tocar" textFill="WHITE" />
          </children>
     </AnchorPane>
    </children>

@@ -22,6 +22,7 @@ public class FilaDeMusicas_Controller {
     private TableView<musica> tableViewFila;
 
     private FilaMusicasUnica filaDeMusicas = FilaMusicasUnica.getInstancia();
+    Reprodutor_Controller reprodutor = Reprodutor_Controller.getInstancia();
 
     private static FilaDeMusicas_Controller instancia;
 
@@ -58,14 +59,25 @@ public class FilaDeMusicas_Controller {
         filaDeMusicas.limparFila();
     }
 
+    @FXML
+    void irDireto(ActionEvent event) {
+        musica musicaSelecionada = tableViewFila.getSelectionModel().getSelectedItem();
+        irParaMusicaSelecionada(musicaSelecionada);
+    }
+
     public void irParaMusicaSelecionada(musica musicaSelecionada) {
+        System.out.println("Entrou aqui");
         FilaMusicasUnica fila = FilaMusicasUnica.getInstancia();
         ObservableList<musica> filaMusicas = fila.getFila();
         int index = filaMusicas.indexOf(musicaSelecionada);
-        
+        System.out.println(index);
+
         if (index >= 0) {
             ObservableList<musica> novaFila = FXCollections.observableArrayList(filaMusicas.subList(index, filaMusicas.size()));
             fila.setFilaDeMusicas(novaFila);
+            tableViewFila.setItems(novaFila);
+            tableViewFila.refresh();
+            reprodutor.proxima();
         }
     }
 }

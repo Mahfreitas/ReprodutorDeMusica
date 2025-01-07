@@ -53,7 +53,7 @@ public class DetalhesPlaylist_Controller {
 
         try{
             try (Connection conn = connectToDatabase()) {
-                String verificarNome = "SELECT * FROM playlists WHERE nome_playlist = ? AND usuario_id = ?";
+                String verificarNome = "SELECT * FROM playlist WHERE nome_playlist = ? AND id_usuario = ?";
                 try (PreparedStatement checkStmt = conn.prepareStatement(verificarNome)) {
                     checkStmt.setString(1, nome);
                     checkStmt.setInt(2, idUsuario);
