@@ -1,7 +1,13 @@
 package soundaura;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -47,12 +53,20 @@ public class Reprodutor_Controller {
     private double volume = 30;
     private MediaPlayer mediaPlayer;
     private static Reprodutor_Controller instance;
-    private FilaMusicasUnica filaDeMusicas = FilaMusicasUnica.getInstance();
+    private FilaMusicasUnica filaDeMusicas = FilaMusicasUnica.getInstancia();
     GestorDeTelas gestor = new GestorDeTelas();
+
+    private static Connection connectToDatabase() throws SQLException {
+        String url = MySQL.getUrl();
+        String user = MySQL.getUser();
+        String password = MySQL.getPassword();
+
+        return DriverManager.getConnection(url, user, password);
+    }
 
     private Reprodutor_Controller() {}
     // a gnt utiliza um synchronized pois permite a utilizaçao de multithread (pois dessa forma varios processos podem ser executados ao mesmo tempo)
-    public static synchronized Reprodutor_Controller getInstance() {
+    public static synchronized Reprodutor_Controller getInstancia() {
         if (instance == null) {
             instance = new Reprodutor_Controller();
         }
@@ -133,6 +147,7 @@ public class Reprodutor_Controller {
         mediaView.setMediaPlayer(mediaPlayer);
         mediaPlayer.setVolume(volume);
         mediaPlayer.play();
+        registrarUltimaReproducao(musica);
     
         mediaPlayer.setOnEndOfMedia(() -> {
             proxima();  // Quando a música terminar, chama a função que vai tocar a próxima
@@ -144,7 +159,7 @@ public class Reprodutor_Controller {
         }); 
 
         formartarNomeMusica(musica.getNome());  // Define o nome da música no label
-        verificarMudo();  // Verifica se está no mudo
+        verificarMudo();  // verifica se tá no mudo
         verificarMudo(); // mantem o estado do mudo alinhado com o volume atual e com a interface do usuario
         definirTempo(); // para ir alterando o tempo da musica conforme ela passa e conforme o usuario troca a musica
         seletorVolume.setValue(volume); // voltar para o volume padrao 0.3
@@ -182,18 +197,29 @@ public class Reprodutor_Controller {
             playPauseBotao.setImage(new Image(getClass().getResource("/soundaura/imagens/pause.png").toString()));
         }
     }
+
+    public void registrarUltimaReproducao(musica musicaTocada) {
+        String query = "UPDATE musica SET ultima_reproducao = CURRENT_TIMESTAMP WHERE id_musica = ?";
+        
+        try (Connection conn = connectToDatabase();) {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, musicaTocada.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert erro = new Alert(Alert.AlertType.ERROR);
+            erro.setTitle("Erro ao atualizar histórico");
+            erro.setHeaderText("Erro ao registrar a última reprodução.");
+            erro.setContentText("Ocorreu um problema ao registrar a reprodução da música.");
+            erro.showAndWait();
+        }
+    }
     
     // botões de ação do nosso reprodutor
     @FXML
     void anterior(MouseEvent event) {
-        //mediaPlayer.stop();
-        //indiceMusicaAtual--;
-        //if (indiceMusicaAtual < 0) {
-        //    indiceMusicaAtual = listaMusicas.size() - 1;
-        //}
-
-        //alterarMusicaAtual();
-        //verificarMudo();
+        mediaPlayer.stop();
+        verificarMudo();
     }
 
     @FXML
@@ -244,7 +270,9 @@ public class Reprodutor_Controller {
     @FXML
     public void proxima() {
         if (!filaDeMusicas.getFila().isEmpty()) {
-            parar();
+            if(mediaPlayer != null){
+                parar();
+            }
             musica proximaMusica = filaDeMusicas.getFila().get(0);  // Pega a primeira música da fila
             filaDeMusicas.getFila().remove(0);  // Remove da fila
             tocarMusica(proximaMusica);  // Toca a música

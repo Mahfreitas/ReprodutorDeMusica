@@ -1,6 +1,5 @@
 package soundaura;
 
-import java.awt.Event;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,22 +8,14 @@ import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class AdicionarMusicasPlaylist_Controller {
-
-    @FXML
-    private TableColumn<musica, String> colunaAlbum;
-
-    @FXML
-    private TableColumn<musica, String> colunaArtista;
 
     @FXML
     private TableColumn<musica, String> colunaNome;
@@ -32,7 +23,13 @@ public class AdicionarMusicasPlaylist_Controller {
     @FXML
     private TableView<musica> tabelaMusica;
 
-    private ObservableList<musica> musicas = FXCollections.observableArrayList();;
+    private ObservableList<musica> listaMusicas;
+    
+    public void setListaMusicas(ObservableList<musica> listaMusicas) {
+        this.listaMusicas = listaMusicas;
+    }
+
+    private ObservableList<musica> musicas = FXCollections.observableArrayList();
     int idUsuarioAtual = SessaoUsuario.getInstancia().getIdUsuario();
 
     public void initialize() {
@@ -50,8 +47,6 @@ public class AdicionarMusicasPlaylist_Controller {
 
     private void configurarTabela() {
         colunaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        colunaAlbum.setCellValueFactory(new PropertyValueFactory<>("album"));
-        colunaArtista.setCellValueFactory(new PropertyValueFactory<>("artista"));
 
         tabelaMusica.setItems(musicas);
     }
@@ -73,7 +68,8 @@ public class AdicionarMusicasPlaylist_Controller {
                     String filepath = rs.getString("filepath_musica");
                     String dataAdicionada = rs.getString("horario_addMS");
                     Integer id = rs.getInt("id_musica");
-                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id);
+                    Boolean favorita = rs.getBoolean("favorita");
+                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita);
                     musicas.add(novaMusica);
                 }
             }
@@ -84,6 +80,7 @@ public class AdicionarMusicasPlaylist_Controller {
             erro.setHeaderText("Erro ao carregar músicas do banco de dados.");
             erro.showAndWait();
         }
+        tabelaMusica.setItems(musicas);
         // aqui nos vamos fazer o tratamento caso o usuario logue em outro dispositivo e tente rodar uma musica que não está disponivel no novo dispositivo
         tabelaMusica.setRowFactory(param -> new TableRow<musica>() {
             @Override
@@ -111,41 +108,41 @@ public class AdicionarMusicasPlaylist_Controller {
     }
     
     @FXML
-    public void adicionarMusicaNaPlaylist() {
+    public void adicionarMusicaNaPlaylist1() {
         musica musicaSelecionada = tabelaMusica.getSelectionModel().getSelectedItem();
-    
         if (musicaSelecionada == null) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Nenhuma música selecionada");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Por favor, selecione uma música para adicionar à playlist.");
+            alerta.setTitle("Seleção Inválida");
+            alerta.setHeaderText("Nenhuma música selecionada.");
+            alerta.setContentText("Por favor, selecione uma música.");
             alerta.showAndWait();
             return;
         }
 
         int idPlaylist = SessaoUsuario.getInstancia().getPlaylistAtual().getIdPlaylist();
-    
-        try (Connection conn = connectToDatabase()) {
-            String query = "INSERT INTO Mplaylist (musica_id, playlist_id) VALUES (?, ?)";
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        String query = "INSERT INTO Mplaylist (musica_id, playlist_id) VALUES (?, ?)";
+        try (Connection conn = connectToDatabase();){
+            try(PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setInt(1, musicaSelecionada.getId());
                 stmt.setInt(2, idPlaylist);
                 stmt.executeUpdate();
-    
+
                 Alert sucesso = new Alert(Alert.AlertType.INFORMATION);
-                sucesso.setTitle("Música adicionada");
-                sucesso.setHeaderText(null);
-                sucesso.setContentText("Música adicionada à playlist com sucesso!");
+                sucesso.setTitle("Sucesso");
+                sucesso.setHeaderText("Música Adicionada");
+                sucesso.setContentText("A música foi adicionada com sucesso!");
                 sucesso.showAndWait();
 
+                listaMusicas.add(musicaSelecionada);
+                
                 fecharCena();
             }
         } catch (SQLException e) {
             e.printStackTrace();
             Alert erro = new Alert(Alert.AlertType.ERROR);
-            erro.setTitle("Erro ao adicionar música");
-            erro.setHeaderText(null);
-            erro.setContentText("Ocorreu um erro ao adicionar a música à playlist. Tente novamente.");
+            erro.setTitle("Erro");
+            erro.setHeaderText("Erro ao salvar música");
+            erro.setContentText("Ocorreu um erro ao tentar salvar a música.");
             erro.showAndWait();
         }
     }

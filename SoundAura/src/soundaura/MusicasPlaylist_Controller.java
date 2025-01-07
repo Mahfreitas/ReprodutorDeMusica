@@ -7,15 +7,21 @@ import java.sql.SQLException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class MusicasPlaylist_Controller {
 
@@ -43,11 +49,20 @@ public class MusicasPlaylist_Controller {
     @FXML
     private TableView<musica> tabelaMusica;
 
+    @FXML
+    private Label nomePlaylist;
+
+    @FXML
+    private Label duracao;
+
     private ObservableList<musica> musicas = FXCollections.observableArrayList();
+
     Musicas_Controller controllerMidia = new Musicas_Controller();
     GestorDeTelas gestor = new GestorDeTelas();
-    Reprodutor_Controller reprodutor = Reprodutor_Controller.getInstance();
+    Reprodutor_Controller reprodutor = Reprodutor_Controller.getInstancia();
+    FilaMusicasUnica fila = FilaMusicasUnica.getInstancia();
     SessaoUsuario usuario = SessaoUsuario.getInstancia();
+    GestorDeTelas gestorDeTelas = new GestorDeTelas();
 
     private static Connection connectToDatabase() throws SQLException {
         String url = MySQL.getUrl();
@@ -56,26 +71,10 @@ public class MusicasPlaylist_Controller {
 
         return DriverManager.getConnection(url, user, password);
     }
-
-    private boolean removerMusicaDoBanco(musica musicaSelecionada) {
-        // Conectar ao banco e remover a música da playlist (dependendo da estrutura do banco)
-        try (Connection conn = connectToDatabase()) {
-            String query = "DELETE FROM Mplaylist WHERE musica_id = ? AND playlist_id = ?";
-            
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setInt(1, musicaSelecionada.getId()); // ID da música
-                stmt.setInt(2, usuario.getPlaylistAtual().getIdPlaylist()); // ID da playlist atual
-                int resultado = stmt.executeUpdate();
-                
-                return resultado > 0; // Retorna true se a música foi removida
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
     
     public void initialize() {
+        nomePlaylist.setText(usuario.getPlaylistAtual().getNome());
+        duracao.setText(usuario.getPlaylistAtual().calcularDuracaoTotal());
         configurarTabela();
         carregarMusicasDoBanco();
     }
@@ -93,9 +92,18 @@ public class MusicasPlaylist_Controller {
     public void carregarMusicasDoBanco() {
         musicas.clear();
         try (Connection conn = connectToDatabase()) {
-            String query = "SELECT * FROM musica WHERE id_usuario = ?";
+            String query;
+            if(usuario.getPlaylistAtual().getNome() == "Minhas Favoritas"){
+                System.out.println("entrou");
+                query = "SELECT * FROM musica WHERE favorita = true AND id_usuario = ?";
+            } else {
+                query = "SELECT m.* " +
+                        " FROM Mplaylist mp " +
+                        " JOIN musica m ON mp.musica_id = m.id_musica " +
+                        " WHERE mp.playlist_id = ?";
+            }
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setInt(1, usuario.getIdUsuario());
+                stmt.setInt(1, usuario.getPlaylistAtual().getIdPlaylist());
                 var rs = stmt.executeQuery();
                 musicas.clear();
                 while (rs.next()) {
@@ -107,9 +115,10 @@ public class MusicasPlaylist_Controller {
                     String filepath = rs.getString("filepath_musica");
                     String dataAdicionada = rs.getString("horario_addMS");
                     Integer id = rs.getInt("id_musica");
+                    Boolean favorita = rs.getBoolean("favorita");
 
                     
-                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id);
+                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita);
                     musicas.add(novaMusica);
                 }
             }
@@ -146,20 +155,24 @@ public class MusicasPlaylist_Controller {
         });
     }
 
-
-    @FXML
-    void abrirReprodutor(MouseEvent event) {
-
-    }
-
-    @FXML
-    void adicionarFila(MouseEvent event) {
-        
-    }
-
     @FXML
     void adicionarMusicaPlaylist(MouseEvent event) {
-        gestor.addPlayStage();
+        Stage addPlayStage = null;
+        try {
+            // Carrega o FXML da tela da fila
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAddMsPlaylist.fxml"));
+            Parent root = loader.load();
+            AdicionarMusicasPlaylist_Controller controller = loader.getController();
+            controller.setListaMusicas(musicas);
+
+            addPlayStage = new Stage();
+            addPlayStage.setScene(new Scene(root));
+            addPlayStage.initModality(Modality.APPLICATION_MODAL);
+            addPlayStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -200,14 +213,134 @@ public class MusicasPlaylist_Controller {
         }
     }
 
-    @FXML
-    void tocar(MouseEvent event) {
+    private boolean removerMusicaDoBanco(musica musicaSelecionada) {
+        // Conectar ao banco e remover a música da playlist (dependendo da estrutura do banco)
+        try (Connection conn = connectToDatabase()) {
+            String query = "DELETE FROM Mplaylist WHERE musica_id = ? AND playlist_id = ?";
+            
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setInt(1, musicaSelecionada.getId()); // ID da música
+                stmt.setInt(2, usuario.getPlaylistAtual().getIdPlaylist()); // ID da playlist atual
+                int resultado = stmt.executeUpdate();
+                
+                return resultado > 0; // Retorna true se a música foi removida
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
+    @FXML
+    void adicionarMusicasSubsequentes (){
+        musica musica = tabelaMusica.getSelectionModel().getSelectedItem();
+        
+        if (musica == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Seleção Inválida");
+            alerta.setHeaderText("Nenhuma música selecionada.");
+            alerta.setContentText("Por favor, selecione uma música tocar.");
+            alerta.showAndWait();
+            return;
+        }
+        ObservableList<musica> listaMusicas = tabelaMusica.getItems();
+        boolean adicionar = false;
+        for (musica musica1 : listaMusicas) {
+            if (adicionar) {
+                fila.adicionarMusica(musica1);  // Adiciona a música à fila
+            }
+            if (musica.equals(musica1)) {
+                adicionar = true;  // Começa a adicionar a partir da música selecionada
+            }
+        }
+        reprodutor.tocarMusica(musica);
     }
 
     @FXML
     void tocarPlaylist(MouseEvent event) {
-
+        fila.limparFila();
+        for (musica musicaPlaylist : musicas) {
+            fila.adicionarMusica(musicaPlaylist);
+            System.out.println("Adicionada à fila: " + musicaPlaylist.getNome());
+        }
+        gestor.abrirReprodutor();
+        reprodutor.proxima();
     }
 
+    @FXML
+    private void tocarMusicaSelecionada(MouseEvent event) {
+        musica musicaSelecionada = tabelaMusica.getSelectionModel().getSelectedItem();
+        
+        if (musicaSelecionada == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Seleção Inválida");
+            alerta.setHeaderText("Nenhuma música selecionada.");
+            alerta.setContentText("Por favor, selecione uma música para tocar.");
+            alerta.showAndWait();
+            return;
+        }
+
+        // "pular" as anteriores
+        FilaDeMusicas_Controller filaDeMusicas = FilaDeMusicas_Controller.getInstancia();
+        filaDeMusicas.irParaMusicaSelecionada(musicaSelecionada); // pular música selecionada
+
+        reprodutor.tocarMusica(musicaSelecionada);
+    }
+
+    public TableView<musica> getTabelaMusica() {
+        return tabelaMusica;
+    }
+
+    @FXML
+    public void adicionarMusicaFIla(){
+        musica musicaSelecionada = tabelaMusica.getSelectionModel().getSelectedItem();
+        
+        if (musicaSelecionada == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Nenhuma música selecionada");
+            alerta.setHeaderText("Selecione uma música para adicionar na fila.");
+            alerta.showAndWait();
+            return;
+        }
+        fila.adicionarMusica(musicaSelecionada);
+        
+        if (fila.getFila().size() == 1 && reprodutor.getMediaPlayer() == null) {
+            gestorDeTelas.abrirReprodutor();
+            reprodutor.tocarMusica(musicaSelecionada); 
+            fila.getFila().remove(0);
+        }
+        reprodutor.abrirFila();
+    }
+
+    
+    Principal_Controller principal = new Principal_Controller();
+    @FXML
+    void irParaConfiguracao(MouseEvent event) {
+        principal.IrParaConfiguracoes(new ActionEvent());
+    }
+
+    @FXML
+    void irParaConta(MouseEvent event) {
+        principal.IrParaConta(new ActionEvent());
+    }
+
+    @FXML
+    void irParaMusicas(MouseEvent event) {
+        principal.IrParaMusicas(new ActionEvent());
+    }
+
+    @FXML
+    void irParaPlaylist(MouseEvent event) {
+        principal.IrParaPlaylist(new ActionEvent());
+    }
+
+    @FXML
+    void irParaPrincipal(MouseEvent event) {
+        principal.IrParaConfiguracoes(new ActionEvent());
+    }
+
+    @FXML
+    void irParaReprodutor(MouseEvent event) {
+        gestorDeTelas.abrirReprodutor();
+    }
 }

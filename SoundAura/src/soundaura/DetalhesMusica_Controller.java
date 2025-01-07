@@ -112,7 +112,7 @@ public class DetalhesMusica_Controller {
 
             try (Connection conn = connectToDatabase()) {
                 // criando a query para a adição e colocando os parametros
-                String query = "INSERT INTO musica (nome_musica, artistas_musica, album_musica, genero_musica, horario_addMS, filepath_musica, id_usuario, duracao_musica) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                String query = "INSERT INTO musica (nome_musica, artistas_musica, album_musica, genero_musica, horario_addMS, filepath_musica, id_usuario, duracao_musica, favorita) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
                     stmt.setString(1, nome);
                     stmt.setString(2, artista);
@@ -122,6 +122,7 @@ public class DetalhesMusica_Controller {
                     stmt.setString(6, caminhoArqCopiado);
                     stmt.setInt(7, idUsuario);
                     stmt.setString(8, duracaoMusica);
+                    stmt.setBoolean(9, false);
                     stmt.executeUpdate();
                     try (ResultSet chavePrimariaMusica = stmt.getGeneratedKeys()) {
                         if (chavePrimariaMusica.next()) {
@@ -140,7 +141,7 @@ public class DetalhesMusica_Controller {
                                 updateStmt.executeUpdate();
                             }
                             // adicionar a musica na lista para aparecer no View
-                            musica novaMusica = new musica(nome, artista, album, duracaoMusica, new Timestamp(System.currentTimeMillis()).toString(), genero, destinoModificado.toString(), idMusica);
+                            musica novaMusica = new musica(nome, artista, album, duracaoMusica, new Timestamp(System.currentTimeMillis()).toString(), genero, destinoModificado.toString(), idMusica, false);
                             listaMusicas.add(novaMusica);
         
                             Alert sucesso = new Alert(Alert.AlertType.INFORMATION);
@@ -148,8 +149,7 @@ public class DetalhesMusica_Controller {
                             sucesso.setHeaderText("Música Adicionada");
                             sucesso.setContentText("A música foi adicionada com sucesso!");
                             sucesso.showAndWait();
-    
-                            // Fechar a janela após salvar
+
                             fecharJanela();
                         } else {
                             throw new SQLException("Falha ao obter o ID da música inserida.");

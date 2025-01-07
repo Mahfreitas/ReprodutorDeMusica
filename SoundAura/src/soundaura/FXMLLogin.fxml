@@ -34,11 +34,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -52,77 +48,38 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.Login_Controller">
    <children>
-      <MenuBar VBox.vgrow="NEVER">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="New" />
-                  <MenuItem mnemonicParsing="false" text="Open…" />
-                  <Menu mnemonicParsing="false" text="Open Recent" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Close" />
-                  <MenuItem mnemonicParsing="false" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Save As…" />
-                  <MenuItem mnemonicParsing="false" text="Revert" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Preferences…" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Quit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Undo" />
-                  <MenuItem mnemonicParsing="false" text="Redo" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Cut" />
-                  <MenuItem mnemonicParsing="false" text="Copy" />
-                  <MenuItem mnemonicParsing="false" text="Paste" />
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Select All" />
-                  <MenuItem mnemonicParsing="false" text="Unselect All" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="2000.0" prefWidth="2000.0" style="-fx-background-size: 100%; -fx-background-insets: 0;" styleClass="background" stylesheets="@../estilos/InicialTheme.css">
          <children>
             <HBox prefHeight="375.0" prefWidth="640.0">
                <children>
                   <Pane fx:id="PaneTopoTela" prefHeight="384.0" prefWidth="642.0">
                      <children>
-                        <Circle fill="WHITE" layoutX="320.0" layoutY="71.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
-                        <ImageView fitHeight="75.0" fitWidth="86.0" layoutX="277.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Circle fill="WHITE" layoutX="320.0" layoutY="95.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
+                        <ImageView fitHeight="75.0" fitWidth="86.0" layoutX="277.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@imagens/LogoApp.png" />
                            </image>
                         </ImageView>
-                        <Text fill="WHITE" layoutX="261.0" layoutY="114.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="SoundAura" textAlignment="CENTER" wrappingWidth="117.26800537109375">
+                        <Text fill="WHITE" layoutX="261.0" layoutY="138.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="SoundAura" textAlignment="CENTER" wrappingWidth="117.26800537109375">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fill="WHITE" layoutX="246.0" layoutY="149.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Email" wrappingWidth="96.26800537109375">
+                        <Text fill="WHITE" layoutX="246.0" layoutY="173.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Email" wrappingWidth="96.26800537109375">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="TextFielEmailLog" layoutX="246.0" layoutY="154.0" />
-                        <Button fx:id="BotaoLogin" blendMode="LIGHTEN" layoutX="268.0" layoutY="249.0" mnemonicParsing="false" onAction="#RealizarLogin" prefHeight="27.0" prefWidth="104.0" styleClass="botao" text="Login" textFill="WHITE" />
-                        <Text fill="WHITE" layoutX="246.0" layoutY="202.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Senha" wrappingWidth="78.61328125">
+                        <TextField fx:id="TextFielEmailLog" layoutX="246.0" layoutY="178.0" />
+                        <Button fx:id="BotaoLogin" blendMode="LIGHTEN" layoutX="268.0" layoutY="273.0" mnemonicParsing="false" onAction="#RealizarLogin" prefHeight="27.0" prefWidth="104.0" styleClass="botao" text="Login" textFill="WHITE" />
+                        <Text fill="WHITE" layoutX="246.0" layoutY="226.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Senha" wrappingWidth="78.61328125">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
                         </Text>
-                        <Text fill="WHITE" layoutX="268.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nao possui conta?" wrappingWidth="104.0" />
-                        <Hyperlink fx:id="LinkLogin3" layoutX="281.0" layoutY="306.0" onAction="#IrParaCad" style="-fx-underline: true;" text="Faça ela aqui" textFill="WHITE" />
-                        <PasswordField fx:id="TextFieldSenhaLog" layoutX="245.0" layoutY="207.0" />
+                        <Text fill="WHITE" layoutX="268.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nao possui conta?" wrappingWidth="104.0" />
+                        <Hyperlink fx:id="LinkLogin3" layoutX="281.0" layoutY="330.0" onAction="#IrParaCad" style="-fx-underline: true;" text="Faça ela aqui" textFill="WHITE" />
+                        <PasswordField fx:id="TextFieldSenhaLog" layoutX="245.0" layoutY="231.0" />
                      </children>
                   </Pane>
                </children>

@@ -1,14 +1,15 @@
 package soundaura;
 
+import java.awt.print.PrinterIOException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -57,8 +58,8 @@ public class Musicas_Controller {
     private ObservableList<musica> musicas = FXCollections.observableArrayList();
 
     int idUsuarioAtual = SessaoUsuario.getInstancia().getIdUsuario();
-    Reprodutor_Controller reprodutor = Reprodutor_Controller.getInstance();
-    private FilaMusicasUnica filaDeMusicas = FilaMusicasUnica.getInstance();
+    Reprodutor_Controller reprodutor = Reprodutor_Controller.getInstancia();
+    private FilaMusicasUnica filaDeMusicas = FilaMusicasUnica.getInstancia();
     GestorDeTelas gestorDeTelas = new GestorDeTelas();
     
     
@@ -122,9 +123,10 @@ public class Musicas_Controller {
                     String filepath = rs.getString("filepath_musica");
                     String dataAdicionada = rs.getString("horario_addMS");
                     Integer id = rs.getInt("id_musica");
+                    Boolean favorita = rs.getBoolean("favorita");
 
                     
-                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id);
+                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita);
                     musicas.add(novaMusica);
                 }
             }
@@ -195,6 +197,7 @@ public class Musicas_Controller {
     void adicionarMusica(MouseEvent event) {
         System.out.println("ID do Usuário Atual111: " + idUsuarioAtual);
         FileChooser escolherMusica = new FileChooser();
+        
         escolherMusica.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arquivos MP3", "*.mp3"));
 
         File arquivoSelecionado = escolherMusica.showOpenDialog(new Stage());
@@ -280,30 +283,15 @@ public class Musicas_Controller {
             return;
         }
         try (Connection conn = connectToDatabase()) {
-            String verificarQuery = "SELECT * FROM musicasFavoritas WHERE id_usuario = ? AND id_musica = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(verificarQuery)) {
-                stmt.setInt(1, idUsuarioAtual);
+            String query = "UPDATE musica SET favorita = ? WHERE id_musica = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                boolean novaCondicaoFavorita = !musicaSelecionada.isFavorita();
+                stmt.setBoolean(1, novaCondicaoFavorita);
                 stmt.setInt(2, musicaSelecionada.getId());
-                ResultSet rs = stmt.executeQuery();
-
-                if (rs.next()) {
-                    String removerQuery = "DELETE FROM musicasFavoritas WHERE id_usuario = ? AND id_musica = ?";
-                    try (PreparedStatement deleteStmt = conn.prepareStatement(removerQuery)) {
-                        deleteStmt.setInt(1, idUsuarioAtual);
-                        deleteStmt.setInt(2, musicaSelecionada.getId());
-                        deleteStmt.executeUpdate();
-                        musicaSelecionada.setFavorita(false);
-                    }
-                } else {
-                    String adicionaQuery = "INSERT INTO musicasFavoritas (id_usuario, id_musica) VALUES (?, ?)";
-                    try (PreparedStatement insertStmt = conn.prepareStatement(adicionaQuery)) {
-                        insertStmt.setInt(1, idUsuarioAtual);
-                        insertStmt.setInt(2, musicaSelecionada.getId());
-                        insertStmt.executeUpdate();
-                        musicaSelecionada.setFavorita(true);
-                    }
-                }
-                tabelaMusica.refresh();
+                stmt.executeUpdate();
+    
+                musicaSelecionada.setFavorita(novaCondicaoFavorita);
+                tabelaMusica.refresh(); 
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -313,7 +301,7 @@ public class Musicas_Controller {
             alerta.setContentText("Ocorreu um erro ao tentar marcar ou desmarcar a música como favorita.");
             alerta.showAndWait();
         }
-}
+    }
 
     @FXML
     void abrirReprodutor(MouseEvent event) {
@@ -362,8 +350,34 @@ public class Musicas_Controller {
             }
         }
     }
+    Principal_Controller principal = new Principal_Controller();
+    @FXML
+    void irParaConfiguracao(MouseEvent event) {
+        principal.IrParaConfiguracoes(new ActionEvent());
+    }
 
-    public ObservableList<musica> getMusicas() {
-        return musicas;
+    @FXML
+    void irParaConta(MouseEvent event) {
+        principal.IrParaConta(new ActionEvent());
+    }
+
+    @FXML
+    void irParaMusicas(MouseEvent event) {
+        principal.IrParaMusicas(new ActionEvent());
+    }
+
+    @FXML
+    void irParaPlaylist(MouseEvent event) {
+        principal.IrParaPlaylist(new ActionEvent());
+    }
+
+    @FXML
+    void irParaPrincipal(MouseEvent event) {
+        principal.IrParaConfiguracoes(new ActionEvent());
+    }
+
+    @FXML
+    void irParaReprodutor(MouseEvent event) {
+        gestorDeTelas.abrirReprodutor();
     }
 }

@@ -11,7 +11,7 @@ public class FilaMusicasUnica {
     private FilaMusicasUnica() {
     }
 
-    public static FilaMusicasUnica getInstance() {
+    public static FilaMusicasUnica getInstancia() {
         if (instancia == null) {
             instancia = new FilaMusicasUnica();
         }
@@ -25,6 +25,10 @@ public class FilaMusicasUnica {
     // aqui é basicamente pra gnt pegar fila basicamente
     public ObservableList<musica> getFila() {
         return filaDeMusicas;
+    }
+
+    public void setFilaDeMusicas(ObservableList<musica> filaDeMusicas) {
+        this.filaDeMusicas = filaDeMusicas;
     }
 
     public void adicionarMusica(musica musica) {

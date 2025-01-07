@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MonitoramentoMemoria",
+            "request": "launch",
+            "mainClass": "soundaura.MonitoramentoMemoria",
+            "projectName": "ReprodutorDeMusica_dc88d936"
+        },
+        {
+            "type": "java",
             "name": "MultiWindowApp",
             "request": "launch",
             "mainClass": "soundaura.MultiWindowApp",

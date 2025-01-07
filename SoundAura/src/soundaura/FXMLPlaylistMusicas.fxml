@@ -63,19 +63,14 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" layoutX="421.0" layoutY="7.0" prefHeight="44.0" prefWidth="125.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" layoutX="452.0" layoutY="7.0" prefHeight="44.0" prefWidth="125.0" spacing="10.0">
                      <children>
-                        <ImageView fitHeight="32.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@imagens/icons8-coração-32.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="37.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="37.0" fitWidth="36.0" onMouseClicked="#adicionarMusicaFIla" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@imagens/icons8-adicionar-30.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="imagemTocar" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imagemTocar" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#adicionarMusicasSubsequentes" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@imagens/icons8-play-dentro-de-um-círculo-50.png" />
                            </image>
@@ -92,34 +87,39 @@
             <AnchorPane prefHeight="28.0" prefWidth="646.0" style="-fx-background-color: #36449f;" />
             <VBox alignment="TOP_CENTER" layoutX="9.0" layoutY="39.0" prefHeight="200.0" prefWidth="35.0" spacing="10.0">
                <children>
-                  <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="28.0" fitWidth="32.0" onMouseClicked="#irParaPrincipal" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/icons8-casa-24.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#irParaConta" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/icons8-usuário-30.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#irParaPlaylist" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/icons8-lista-de-reprodução-inteligente-50.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#irParaMusicas" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/icons8-nota-musical-30.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#irParaReprodutor" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imagens/fones.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#irParaConfiguracao" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/icons8-engrenagem-24.png" />
                      </image>
                   </ImageView>
                </children>
             </VBox>
-            <TableView fx:id="tabelaMusica" layoutX="55.0" layoutY="89.0" prefHeight="239.0" prefWidth="583.0">
+            <TableView fx:id="tabelaMusica" layoutX="59.0" layoutY="81.0" prefHeight="239.0" prefWidth="583.0">
                <columns>
                   <TableColumn fx:id="colunaNome" prefWidth="214.0" text="Nome" />
                   <TableColumn fx:id="colunaAlbum" prefWidth="83.0" text="Album" />
@@ -133,16 +133,25 @@
                   <Image url="@imagens/icons8-logout-64.png" />
                </image>
             </ImageView>
-            <HBox alignment="CENTER" layoutX="56.0" layoutY="39.0" prefHeight="36.0" prefWidth="583.0">
+            <HBox alignment="CENTER" layoutX="59.0" layoutY="39.0" prefHeight="36.0" prefWidth="583.0">
                <children>
-                  <Text fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="text" text="Minhas Playlist: " textAlignment="CENTER" wrappingWidth="186.26800537109375">
+                  <Label fx:id="nomePlaylist" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="tex" stylesheets="@../estilos/InicialTheme.css" text="Label" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
-                  </Text>
-                  <Label style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="tex" stylesheets="@../estilos/InicialTheme.css" text="Label" textFill="WHITE">
+                  </Label>
+               </children>
+            </HBox>
+            <Text fill="WHITE" layoutX="59.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" text="Duração: ">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER" layoutX="92.0" layoutY="313.0" prefHeight="36.0" prefWidth="138.0">
+               <children>
+                  <Label fx:id="duracao" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="tex" stylesheets="@../estilos/InicialTheme.css" text="Label" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="22.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                </children>

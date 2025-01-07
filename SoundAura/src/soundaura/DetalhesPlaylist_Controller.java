@@ -53,6 +53,21 @@ public class DetalhesPlaylist_Controller {
 
         try{
             try (Connection conn = connectToDatabase()) {
+                String verificarNome = "SELECT * FROM playlists WHERE nome_playlist = ? AND usuario_id = ?";
+                try (PreparedStatement checkStmt = conn.prepareStatement(verificarNome)) {
+                    checkStmt.setString(1, nome);
+                    checkStmt.setInt(2, idUsuario);
+                    ResultSet resultSet = checkStmt.executeQuery();
+        
+                    if (resultSet.next()) {
+                        Alert alerta = new Alert(Alert.AlertType.WARNING);
+                        alerta.setTitle("Erro");
+                        alerta.setHeaderText("Nome de Playlist Duplicado");
+                        alerta.setContentText("Já existe uma playlist com esse nome. Escolha outro nome.");
+                        alerta.showAndWait();
+                        return;
+                    }
+                }
                 // criando a query para a adição e colocando os parametros
                 String query = "INSERT INTO playlist (nome_playlist, id_usuario, duracao_total) VALUES (?, ?, ?)";
                 try (PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -64,7 +79,7 @@ public class DetalhesPlaylist_Controller {
                         if (chavePrimaria.next()) {
                             int id = chavePrimaria.getInt(1);
 
-                            playlist novaPlaylist = new playlist(id, nome, new Timestamp(System.currentTimeMillis()).toString(), 0);
+                            playlist novaPlaylist = new playlist(id, nome, new Timestamp(System.currentTimeMillis()).toString());
                             listaPlaylist.add(novaPlaylist);
         
                             Alert sucesso = new Alert(Alert.AlertType.INFORMATION);
@@ -73,7 +88,6 @@ public class DetalhesPlaylist_Controller {
                             sucesso.setContentText("A playlist foi adicionada com sucesso!");
                             sucesso.showAndWait();
         
-                            // Fechar a janela após salvar
                             fecharJanela();
                         } else {
                             throw new SQLException("Falha ao obter o ID da playlist inserida.");

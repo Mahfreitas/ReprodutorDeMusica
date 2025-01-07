@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -37,7 +38,7 @@ public class Playlist_Controller {
     private TableView<playlist> tabelaPlaylist;
     private ObservableList<playlist> playlists = FXCollections.observableArrayList();
     int idUsuarioAtual = SessaoUsuario.getInstancia().getIdUsuario();
-    
+    GestorDeTelas gestorDeTelas = new GestorDeTelas();
 
     private static Connection connectToDatabase() throws SQLException {
         String url = MySQL.getUrl();
@@ -87,11 +88,10 @@ public class Playlist_Controller {
                 playlists.clear();
                 while (rs.next()) {
                     String nome = rs.getString("nome_playlist");
-                    Integer duracao = rs.getInt("duracao_total");
                     String dataAdicionada = rs.getString("horario_addPS");
                     Integer id = rs.getInt("id_playlist");
                     
-                    playlist novaPlaylist = new playlist(id, nome, dataAdicionada, duracao);
+                    playlist novaPlaylist = new playlist(id, nome, dataAdicionada);
                     playlists.add(novaPlaylist);
                 }
             }
@@ -163,6 +163,14 @@ public class Playlist_Controller {
             return;
         }
 
+        if ("Minhas Favoritas".equals(playlistSelecionada.getNome())) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Operação Não Permitida");
+            alerta.setHeaderText("Playlist Protegida");
+            alerta.setContentText("A playlist 'Minhas Favoritas' não pode ser excluída.");
+            alerta.showAndWait();
+            return;
+        }
 
         Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
         confirmacao.setTitle("Confirmar Exclusão");
@@ -216,7 +224,7 @@ public class Playlist_Controller {
             return;
         }
 
-        MusicasPlaylist_Controller playcontroller = new MusicasPlaylist_Controller();
+        System.out.println("Abrindo playlist: " + playlistSelecionada.getNome());
         SessaoUsuario.getInstancia().setPlaylistAtual(playlistSelecionada);
 
         try {
@@ -228,5 +236,36 @@ public class Playlist_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    Principal_Controller principal = new Principal_Controller();
+    @FXML
+    void irParaConfiguracao(MouseEvent event) {
+        principal.IrParaConfiguracoes(new ActionEvent());
+    }
+
+    @FXML
+    void irParaConta(MouseEvent event) {
+        principal.IrParaConta(new ActionEvent());
+    }
+
+    @FXML
+    void irParaMusicas(MouseEvent event) {
+        principal.IrParaMusicas(new ActionEvent());
+    }
+
+    @FXML
+    void irParaPlaylist(MouseEvent event) {
+        principal.IrParaPlaylist(new ActionEvent());
+    }
+
+    @FXML
+    void irParaPrincipal(MouseEvent event) {
+        principal.IrParaConfiguracoes(new ActionEvent());
+    }
+
+    @FXML
+    void irParaReprodutor(MouseEvent event) {
+        gestorDeTelas.abrirReprodutor();
     }
 }

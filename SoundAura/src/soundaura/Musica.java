@@ -14,7 +14,7 @@ public class musica {
     private boolean favorita;
     private boolean arquivoDisponivel;
 
-    public musica(String nome, String artista, String album, String duracao, String dataAdicionada, String genero, String filepath, Integer id) {
+    public musica(String nome, String artista, String album, String duracao, String dataAdicionada, String genero, String filepath, Integer id, Boolean favorita) {
         this.nome = nome;
         this.artista = artista;
         this.album = album;
@@ -24,6 +24,7 @@ public class musica {
         this.filepath = filepath;
         this.id = id;
         this.arquivoDisponivel = new File(filepath).exists(); // verifica de o arquivo existe de fato no dispositivo conectado a conta
+        this.favorita = favorita;
     }
 
     public String getNome() {

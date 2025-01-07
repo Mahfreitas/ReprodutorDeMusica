@@ -19,7 +19,7 @@ public class GestorDeTelas {
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLReprodutor.fxml"));
-                loader.setController(Reprodutor_Controller.getInstance());
+                loader.setController(Reprodutor_Controller.getInstancia());
     
                 Parent root = loader.load();
                 reprodutorStage = new Stage();
@@ -60,7 +60,7 @@ public class GestorDeTelas {
             try {
                 // Carrega o FXML da tela da fila
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFila.fxml"));
-                loader.setController(FilaDeMusicas_Controller.getInstance());
+                loader.setController(FilaDeMusicas_Controller.getInstancia());
 
                 Parent root = loader.load();
                 filaStage = new Stage();
@@ -73,26 +73,5 @@ public class GestorDeTelas {
             }
         }
     }
-
-        private Stage addPlayStage = null;
-    
-        public void addPlayStage() {
-            if (addPlayStage != null && addPlayStage.isShowing()) {
-                addPlayStage.toFront();
-            } else {
-                try {
-                    // Carrega o FXML da tela da fila
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLAddMsPlaylist.fxml"));
-
-                    Parent root = loader.load();
-                    addPlayStage = new Stage();
-                    addPlayStage.setScene(new Scene(root));
-                    addPlayStage.initStyle(StageStyle.UTILITY);  // Estilo para janela normal
-                    addPlayStage.show();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+  
 }

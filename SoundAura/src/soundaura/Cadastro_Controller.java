@@ -124,8 +124,15 @@ public class Cadastro_Controller {
                                             if (!novaPasta.exists()) {
                                                 novaPasta.mkdir();
                                             }
+
+                                            String insertPlaylistQuery = "INSERT INTO playlists (nome_playlist, usuario_id) VALUES (?, ?)";
+                                            try (PreparedStatement playlistStmt = conn.prepareStatement(insertPlaylistQuery)) {
+                                                playlistStmt.setString(1, "Minhas Favoritas");
+                                                playlistStmt.setInt(2, idUsuario);
+                                                playlistStmt.executeUpdate();
+                                            }
                                         } else {
-                                            throw new SQLException("Falha ao obter o ID do usuário inserido.");
+                                            throw new SQLException("Erro ao obter o ID do usuário inserido.");
                                         }
                                     }
                                     IrParaPrincipal(event);

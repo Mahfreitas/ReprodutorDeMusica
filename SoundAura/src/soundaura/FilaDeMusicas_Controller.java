@@ -1,5 +1,7 @@
 package soundaura;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -19,11 +21,11 @@ public class FilaDeMusicas_Controller {
     @FXML
     private TableView<musica> tableViewFila;
 
-    private FilaMusicasUnica filaDeMusicas = FilaMusicasUnica.getInstance();
+    private FilaMusicasUnica filaDeMusicas = FilaMusicasUnica.getInstancia();
 
     private static FilaDeMusicas_Controller instancia;
 
-    public static FilaDeMusicas_Controller getInstance() {
+    public static FilaDeMusicas_Controller getInstancia() {
         if (instancia == null) {
             instancia = new FilaDeMusicas_Controller();
         }
@@ -54,5 +56,16 @@ public class FilaDeMusicas_Controller {
     @FXML
     void esvaziarFila(ActionEvent event) {
         filaDeMusicas.limparFila();
+    }
+
+    public void irParaMusicaSelecionada(musica musicaSelecionada) {
+        FilaMusicasUnica fila = FilaMusicasUnica.getInstancia();
+        ObservableList<musica> filaMusicas = fila.getFila();
+        int index = filaMusicas.indexOf(musicaSelecionada);
+        
+        if (index >= 0) {
+            ObservableList<musica> novaFila = FXCollections.observableArrayList(filaMusicas.subList(index, filaMusicas.size()));
+            fila.setFilaDeMusicas(novaFila);
+        }
     }
 }

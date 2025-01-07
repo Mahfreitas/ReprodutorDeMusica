@@ -14,7 +14,7 @@ public class SessaoUsuario {
     }
 
     public int getIdUsuario() {
-        return 1;
+        return idUsuario;
     }
 
     public void setIdUsuario(int idUsuario) {
