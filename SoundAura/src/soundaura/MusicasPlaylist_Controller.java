@@ -54,9 +54,6 @@ public class MusicasPlaylist_Controller {
     @FXML
     private Label nomePlaylist;
 
-    @FXML
-    private Label duracao;
-
     private ObservableList<musica> musicas = FXCollections.observableArrayList();
 
     Musicas_Controller controllerMidia = new Musicas_Controller();
@@ -76,7 +73,6 @@ public class MusicasPlaylist_Controller {
     
     public void initialize() {
         nomePlaylist.setText(usuario.getPlaylistAtual().getNome());
-        duracao.setText(usuario.getPlaylistAtual().calcularDuracaoTotal());
         configurarTabela();
         carregarMusicasDoBanco();
     }
