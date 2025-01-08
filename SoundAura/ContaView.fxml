@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ContaController">
+    <children>
+        <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="20.0">
+            <Label text="Sua Conta" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            
+            <TextField fx:id="emailField" promptText="Novo e-mail" />
+            <Button fx:id="btnTrocarEmail" text="Trocar Email" />
+            
+            <TextField fx:id="senhaField" promptText="Nova senha" />
+            <Button fx:id="btnTrocarSenha" text="Trocar Senha" />
+        </VBox>
+    </children>
+</AnchorPane>
