@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
@@ -54,26 +53,26 @@ public class Principal_Controller {
 
     public void carregarHistorico(){
             tabelaRep.getItems().clear();
-            String query = "SELECT * FROM musica WHERE ultima_reproducao IS NOT NULL ORDER BY ultima_reproducao DESC";
-        
-            try (Connection conn = connectToDatabase();
-                PreparedStatement stmt = conn.prepareStatement(query);
-                ResultSet rs = stmt.executeQuery();) {
-        
-                while (rs.next()) {
-                    String nome = rs.getString("nome_musica");
-                    String artista = rs.getString("artistas_musica");
-                    String album = rs.getString("album_musica");
-                    String genero = rs.getString("genero_musica");
-                    String duracao = rs.getString("duracao_musica");
-                    String filepath = rs.getString("filepath_musica");
-                    String dataAdicionada = rs.getString("horario_addMS");
-                    Integer id = rs.getInt("id_musica");
-                    Boolean favorita = rs.getBoolean("favorita");
-                    String ultimaRep = rs.getString("ultima_reproducao");
-        
-                    musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita, ultimaRep);
-                    tabelaRep.getItems().add(novaMusica);
+            try (Connection conn = connectToDatabase()) {
+                String query = "SELECT * FROM musica WHERE ultima_reproducao IS NOT NULL AND id_usuario = ? ORDER BY ultima_reproducao DESC";
+                try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                    stmt.setInt(1, usuario.getIdUsuario());
+                    var rs = stmt.executeQuery();
+                    while (rs.next()) {
+                        String nome = rs.getString("nome_musica");
+                        String artista = rs.getString("artistas_musica");
+                        String album = rs.getString("album_musica");
+                        String genero = rs.getString("genero_musica");
+                        String duracao = rs.getString("duracao_musica");
+                        String filepath = rs.getString("filepath_musica");
+                        String dataAdicionada = rs.getString("horario_addMS");
+                        Integer id = rs.getInt("id_musica");
+                        Boolean favorita = rs.getBoolean("favorita");
+                        String ultimaRep = rs.getString("ultima_reproducao");
+                        
+                        musica novaMusica = new musica(nome, artista, album, duracao, dataAdicionada, genero, filepath, id, favorita, ultimaRep);
+                        tabelaRep.getItems().add(novaMusica);
+                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

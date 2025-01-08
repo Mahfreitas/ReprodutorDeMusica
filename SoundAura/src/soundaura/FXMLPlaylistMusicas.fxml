@@ -41,9 +41,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.MusicasPlaylist_Controller">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="soundaura.MusicasPlaylist_Controller">
    <children>
       <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: black;" VBox.vgrow="ALWAYS">
          <children>
@@ -92,11 +91,6 @@
                         <Image url="@imagens/icons8-casa-24.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#irParaConta" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@imagens/icons8-usuário-30.png" />
-                     </image>
-                  </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#irParaPlaylist" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/icons8-lista-de-reprodução-inteligente-50.png" />
@@ -110,11 +104,6 @@
                   <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#AbrirReprodutor" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imagens/fones.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="32.0" onMouseClicked="#irParaConfiguracao" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@imagens/icons8-engrenagem-24.png" />
                      </image>
                   </ImageView>
                </children>
@@ -138,20 +127,6 @@
                   <Label fx:id="nomePlaylist" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="tex" stylesheets="@../estilos/InicialTheme.css" text="Label" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <Text fill="WHITE" layoutX="59.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" text="Duração: ">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Text>
-            <HBox alignment="CENTER" layoutX="92.0" layoutY="313.0" prefHeight="36.0" prefWidth="138.0">
-               <children>
-                  <Label fx:id="duracao" style="-fx-font-family: &quot;MuseoModerno&quot;, sans-serif;" styleClass="tex" stylesheets="@../estilos/InicialTheme.css" text="Label" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
                      </font>
                   </Label>
                </children>
